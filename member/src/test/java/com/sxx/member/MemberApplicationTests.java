@@ -15,7 +15,8 @@ class MemberApplicationTests {
     void contextLoads() {
         Member member = new Member();
         member.setEmail("2733656558");
-        memberService.save(member);
+        memberService.getById("1");
+//        memberService.save(member);
 
     }
 
