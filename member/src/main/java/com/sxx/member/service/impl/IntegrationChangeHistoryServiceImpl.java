@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 /**
 * @author shenxianxin
-* @description 针对表【ums_integration_change_history(积分变化历史记录)】的数据库操作Service实现
-* @createDate 2021-12-02 18:31:53
+*  针对表【ums_integration_change_history(积分变化历史记录)】的数据库操作Service实现
+* @since 2021-12-02 18:31:53
 */
 @Service
 public class IntegrationChangeHistoryServiceImpl extends ServiceImpl<IntegrationChangeHistoryMapper, IntegrationChangeHistory>

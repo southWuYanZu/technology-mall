@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
 * @author shenxianxin
-* @description 针对表【ums_integration_change_history(积分变化历史记录)】的数据库操作Service
-* @createDate 2021-12-02 18:31:53
+*  针对表【ums_integration_change_history(积分变化历史记录)】的数据库操作Service
+* @since 2021-12-02 18:31:53
 */
 public interface IntegrationChangeHistoryService extends IService<IntegrationChangeHistory> {
 

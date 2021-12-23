@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 /**
 * @author shenxianxin
-* @description 针对表【oms_refund_info(退款信息)】的数据库操作Service实现
-* @createDate 2021-12-02 18:48:47
+*  针对表【oms_refund_info(退款信息)】的数据库操作Service实现
+* @since 2021-12-02 18:48:47
 */
 @Service
 public class RefundInfoServiceImpl extends ServiceImpl<RefundInfoMapper, RefundInfo>

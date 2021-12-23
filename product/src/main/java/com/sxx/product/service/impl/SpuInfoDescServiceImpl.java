@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 /**
 * @author shenxianxin
-* @description 针对表【pms_spu_info_desc(spu信息介绍)】的数据库操作Service实现
-* @createDate 2021-12-02 18:42:19
+*  针对表【pms_spu_info_desc(spu信息介绍)】的数据库操作Service实现
+* @since 2021-12-02 18:42:19
 */
 @Service
 public class SpuInfoDescServiceImpl extends ServiceImpl<SpuInfoDescMapper, SpuInfoDesc>

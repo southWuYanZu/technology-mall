@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 /**
 * @author shenxianxin
-* @description 针对表【ums_member(会员)】的数据库操作Service实现
-* @createDate 2021-12-02 18:31:53
+*  针对表【ums_member(会员)】的数据库操作Service实现
+* @since 2021-12-02 18:31:53
 */
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member>

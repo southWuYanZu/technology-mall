@@ -4,4 +4,7 @@ spring:
     url: jdbc:mysql://192.168.56.10:3306/MALL_SMS?serverTimezone=GMT%2B8
     username: root
     password: '0810'
-    
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848

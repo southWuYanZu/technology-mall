@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author shenxianxin
-* @description 针对表【wms_purchase(采购信息)】的数据库操作Mapper
-* @createDate 2021-12-02 18:50:01
+*  针对表【wms_purchase(采购信息)】的数据库操作Mapper
+* @since 2021-12-02 18:50:01
 * @Entity com.sxx.ware.entity.Purchase
 */
 public interface PurchaseMapper extends BaseMapper<Purchase> {
