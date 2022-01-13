@@ -1,6 +1,5 @@
 package com.sxx.product.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mysql.cj.util.StringUtils;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.Category;
@@ -73,9 +72,19 @@ public class CategoryController {
     @ApiOperation("修改品类")
     @PostMapping("/update")
     public ResponseEntity update(@RequestBody Category category) {
-        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("cat_id", category.getCatId());
-        categoryService.update(category, queryWrapper);
+        categoryService.updateById(category);
+        return ResponseEntity.ok();
+    }
+    /**
+     * 批量修改品类
+     *
+     * @param category 当前品类信息集合
+     * @return 成功状态码
+     */
+    @ApiOperation("批量修改品类")
+    @PostMapping("/updateBatchById")
+    public ResponseEntity update(@RequestBody List<Category> category) {
+        categoryService.updateBatchById(category);
         return ResponseEntity.ok();
     }
 
