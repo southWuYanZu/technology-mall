@@ -1,17 +1,17 @@
 package com.sxx.product.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 商品三级分类
+ *
  * @TableName pms_category
  */
-@TableName(value ="pms_category")
+@TableName(value = "pms_category")
 @Data
 public class Category implements Serializable {
     /**
@@ -42,6 +42,7 @@ public class Category implements Serializable {
      * 是否显示[0-不显示，1显示]
      */
     @TableField(value = "show_status")
+    @TableLogic(value = "1", delval = "0")
     private Byte showStatus;
 
     /**
@@ -68,6 +69,12 @@ public class Category implements Serializable {
     @TableField(value = "product_count")
     private Integer productCount;
 
+    /**
+     * 品类子类
+     */
+    @TableField(exist = false)
+    private List<Category> childList;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -84,14 +91,14 @@ public class Category implements Serializable {
         }
         Category other = (Category) that;
         return (this.getCatId() == null ? other.getCatId() == null : this.getCatId().equals(other.getCatId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getParentCid() == null ? other.getParentCid() == null : this.getParentCid().equals(other.getParentCid()))
-            && (this.getCatLevel() == null ? other.getCatLevel() == null : this.getCatLevel().equals(other.getCatLevel()))
-            && (this.getShowStatus() == null ? other.getShowStatus() == null : this.getShowStatus().equals(other.getShowStatus()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
-            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getProductUnit() == null ? other.getProductUnit() == null : this.getProductUnit().equals(other.getProductUnit()))
-            && (this.getProductCount() == null ? other.getProductCount() == null : this.getProductCount().equals(other.getProductCount()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getParentCid() == null ? other.getParentCid() == null : this.getParentCid().equals(other.getParentCid()))
+                && (this.getCatLevel() == null ? other.getCatLevel() == null : this.getCatLevel().equals(other.getCatLevel()))
+                && (this.getShowStatus() == null ? other.getShowStatus() == null : this.getShowStatus().equals(other.getShowStatus()))
+                && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+                && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
+                && (this.getProductUnit() == null ? other.getProductUnit() == null : this.getProductUnit().equals(other.getProductUnit()))
+                && (this.getProductCount() == null ? other.getProductCount() == null : this.getProductCount().equals(other.getProductCount()));
     }
 
     @Override

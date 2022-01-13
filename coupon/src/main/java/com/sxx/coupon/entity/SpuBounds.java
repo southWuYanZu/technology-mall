@@ -22,7 +22,7 @@ public class SpuBounds implements Serializable {
     private Long id;
 
     /**
-     * 
+     *
      */
     @TableField(value = "spu_id")
     private Long spuId;

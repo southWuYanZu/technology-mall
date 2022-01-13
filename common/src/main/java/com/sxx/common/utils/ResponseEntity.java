@@ -38,10 +38,16 @@ public class ResponseEntity extends HashMap<String, Object> {
 		r.put("msg", msg);
 		return r;
 	}
+
 	
 	public static ResponseEntity ok(Map<String, Object> map) {
 		ResponseEntity r = new ResponseEntity();
 		r.putAll(map);
+		return r;
+	}
+	public static ResponseEntity ok(String key,Object value) {
+		ResponseEntity r = new ResponseEntity();
+		r.put(key,value);
 		return r;
 	}
 	
