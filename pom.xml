@@ -17,6 +17,7 @@
         <module>ware</module>
         <module>common</module>
         <module>gateway</module>
+        <module>thirdparty</module>
     </modules>
 
 </project>

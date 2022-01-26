@@ -2,20 +2,28 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: thirdparty_route
+          uri: lb://third-party
+          predicates:
+          - Path=/api/thirdparty/**
+          filters:
+          - RewritePath=/api/?(?<segment>.*), /$\{segment}
         - id: product_route
           uri: lb://product
           predicates:
-            - Path=/api/product/**
+          - Path=/api/product/**
           filters:
-            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+          - RewritePath=/api/?(?<segment>.*), /$\{segment}
         - id: admin_route
           uri: lb://admin
           predicates:
-            - Path=/api/**
+          - Path=/api/**
           filters:
-            - RewritePath=/api/?(?<segment>.*), /renren-fast/$\{segment}
+          - RewritePath=/api/?(?<segment>.*), /renren-fast/$\{segment}
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
   application:
     name: gateway
+server:
+  port: 88

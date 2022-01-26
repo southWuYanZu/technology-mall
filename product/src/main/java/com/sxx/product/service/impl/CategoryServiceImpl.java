@@ -12,8 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author shenxianxin
  * 针对表【pms_category(商品三级分类)】的数据库操作Service实现
+ *
+ * @author shenxianxin
  * @since 2021-12-02 18:42:19
  */
 @Service
@@ -41,7 +42,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
      */
     @Override
     public void deleteMenusByIds(Long[] ids) {
-        // TODO 关联删除校验
+        //TODO 关联删除校验
         baseMapper.deleteBatchIds(Arrays.asList(ids));
     }
 

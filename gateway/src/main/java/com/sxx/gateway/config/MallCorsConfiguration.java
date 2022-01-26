@@ -1,4 +1,4 @@
-package com.sxx.gatway.gatway.config;
+package com.sxx.gateway.config;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.context.annotation.Bean;
