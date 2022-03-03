@@ -28,8 +28,8 @@ public class AttrGroupController {
      * @return 数据集
      */
     @GetMapping("list/{catId}")
-    public ResponseEntity attrList(@RequestParam Map<String, Object> params, @PathVariable Long catId) {
+    public ResponseEntity attrList(@RequestParam Map<String, Object> params,
+                                   @PathVariable Long catId) {
         return attrGroupService.queryPage(params, catId);
     }
-
 }

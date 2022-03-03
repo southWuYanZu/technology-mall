@@ -16,8 +16,8 @@ import java.util.List;
  * @since 2021/12/12
  */
 @RestController
-@RequiredArgsConstructor
 @Api(value = "商品品类")
+@RequiredArgsConstructor
 @RequestMapping("product/category")
 public class CategoryController {
 

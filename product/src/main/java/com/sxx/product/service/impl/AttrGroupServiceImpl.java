@@ -1,13 +1,16 @@
 package com.sxx.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mysql.cj.util.StringUtils;
+import com.sxx.common.utils.Query;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.AttrGroup;
 import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.service.AttrGroupService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,9 +32,16 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
      */
     @Override
     public ResponseEntity queryPage(Map<String, Object> params, Long catId) {
-
-        List<AttrGroup> attrGroupList = this.list();
-        return null;
+        String key = (String) params.get("key");
+        QueryWrapper<AttrGroup> wrapper = new QueryWrapper<>();
+        if (catId != 0) {
+            wrapper.eq("cateLog_id", catId);
+        }
+        if (!StringUtils.isNullOrEmpty(key)) {
+            wrapper.and(condition -> condition.eq("attr_group_name", key).or().likeLeft("descript", key));
+        }
+        IPage<AttrGroup> page = this.page(new Query<AttrGroup>().getPage(params), wrapper);
+        return ResponseEntity.ok("page",page);
     }
 }
 

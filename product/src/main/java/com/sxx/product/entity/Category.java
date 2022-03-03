@@ -1,6 +1,7 @@
 package com.sxx.product.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * 商品三级分类
  *
+ * @author Mr.shen
  * @TableName pms_category
  */
 @TableName(value = "pms_category")
@@ -73,7 +75,9 @@ public class Category implements Serializable {
      * 品类子类
      */
     @TableField(exist = false)
+    @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private List<Category> childList;
+
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -119,21 +123,19 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", catId=").append(catId);
-        sb.append(", name=").append(name);
-        sb.append(", parentCid=").append(parentCid);
-        sb.append(", catLevel=").append(catLevel);
-        sb.append(", showStatus=").append(showStatus);
-        sb.append(", sort=").append(sort);
-        sb.append(", icon=").append(icon);
-        sb.append(", productUnit=").append(productUnit);
-        sb.append(", productCount=").append(productCount);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", catId=" + catId +
+                ", name=" + name +
+                ", parentCid=" + parentCid +
+                ", catLevel=" + catLevel +
+                ", showStatus=" + showStatus +
+                ", sort=" + sort +
+                ", icon=" + icon +
+                ", productUnit=" + productUnit +
+                ", productCount=" + productCount +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
     }
 }
