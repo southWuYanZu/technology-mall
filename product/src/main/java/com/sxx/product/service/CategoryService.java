@@ -24,4 +24,12 @@ public interface CategoryService extends IService<Category> {
      * @param ids id 集合
      */
     void deleteMenusByIds(Long[] ids);
+
+    /**
+     * 根据categoryID查询详细信息进行回写
+     *
+     * @param categoryId ID
+     * @return 回写分组详细信息
+     */
+    Long[] findCategoryPathById(Long categoryId);
 }

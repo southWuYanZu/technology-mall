@@ -4,14 +4,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 属性分组
+ *
+ * @author Mr.shen
  * @TableName pms_attr_group
  */
-@TableName(value ="pms_attr_group")
+@TableName(value = "pms_attr_group")
 @Data
 public class AttrGroup implements Serializable {
     /**
@@ -50,6 +53,12 @@ public class AttrGroup implements Serializable {
     @TableField(value = "catelog_id")
     private Long catelogId;
 
+    /**
+     * 分类全路径
+     */
+    @TableField(exist = false)
+    private Long[] catelogPath;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -66,11 +75,11 @@ public class AttrGroup implements Serializable {
         }
         AttrGroup other = (AttrGroup) that;
         return (this.getAttrGroupId() == null ? other.getAttrGroupId() == null : this.getAttrGroupId().equals(other.getAttrGroupId()))
-            && (this.getAttrGroupName() == null ? other.getAttrGroupName() == null : this.getAttrGroupName().equals(other.getAttrGroupName()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
-            && (this.getDescript() == null ? other.getDescript() == null : this.getDescript().equals(other.getDescript()))
-            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getCatelogId() == null ? other.getCatelogId() == null : this.getCatelogId().equals(other.getCatelogId()));
+                && (this.getAttrGroupName() == null ? other.getAttrGroupName() == null : this.getAttrGroupName().equals(other.getAttrGroupName()))
+                && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+                && (this.getDescript() == null ? other.getDescript() == null : this.getDescript().equals(other.getDescript()))
+                && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
+                && (this.getCatelogId() == null ? other.getCatelogId() == null : this.getCatelogId().equals(other.getCatelogId()));
     }
 
     @Override

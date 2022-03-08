@@ -1,8 +1,11 @@
 package com.sxx.product.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mysql.cj.util.StringUtils;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.Category;
+import com.sxx.product.entity.CategoryBrandRelation;
+import com.sxx.product.service.CategoryBrandRelationService;
 import com.sxx.product.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +25,8 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
+    private final CategoryBrandRelationService relationService;
 
     /**
      * 查询商品品类
@@ -73,6 +78,12 @@ public class CategoryController {
     @PostMapping("/update")
     public ResponseEntity update(@RequestBody Category category) {
         categoryService.updateById(category);
+        if (!StringUtils.isNullOrEmpty(category.getName())) {
+            CategoryBrandRelation relation = new CategoryBrandRelation();
+            relation.setCatelogName(category.getName());
+            relationService.update(relation, new QueryWrapper<CategoryBrandRelation>()
+                    .eq("catelog_id", category.getCatId()));
+        }
         return ResponseEntity.ok();
     }
     /**

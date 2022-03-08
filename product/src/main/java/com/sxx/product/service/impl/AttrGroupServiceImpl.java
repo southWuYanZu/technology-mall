@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mysql.cj.util.StringUtils;
+import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.AttrGroup;
@@ -38,10 +39,10 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
             wrapper.eq("cateLog_id", catId);
         }
         if (!StringUtils.isNullOrEmpty(key)) {
-            wrapper.and(condition -> condition.eq("attr_group_name", key).or().likeLeft("descript", key));
+            wrapper.and(condition -> condition.eq("attr_group_name", key).or().likeRight("descript", key));
         }
         IPage<AttrGroup> page = this.page(new Query<AttrGroup>().getPage(params), wrapper);
-        return ResponseEntity.ok("page",page);
+        return ResponseEntity.ok("page",new PageUtils(page));
     }
 }
 

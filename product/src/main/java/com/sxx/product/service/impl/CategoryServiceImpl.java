@@ -6,9 +6,7 @@ import com.sxx.product.service.CategoryService;
 import com.sxx.product.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +42,34 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     public void deleteMenusByIds(Long[] ids) {
         //TODO 关联删除校验
         baseMapper.deleteBatchIds(Arrays.asList(ids));
+    }
+
+    /**
+     * 根据categoryID查询详细信息进行回写
+     *
+     * @param categoryId ID
+     * @return 回写分组详细信息
+     */
+    @Override
+    public Long[] findCategoryPathById(Long categoryId) {
+        List<Long> list = new ArrayList<>(4);
+        recursionGetCategoryId(categoryId, list);
+        Collections.reverse(list);
+        return list.toArray(new Long[list.size() - 1]);
+    }
+
+    /**
+     * 查询category 所有父子id
+     *
+     * @param categoryId 当前分组id
+     * @param list       当前分组id 的所有父子 id
+     */
+    private void recursionGetCategoryId(Long categoryId, List<Long> list) {
+        list.add(categoryId);
+        Category category = this.getById(categoryId);
+        if (category.getParentCid() != 0 && category.getParentCid() > 0 && category.getParentCid() != null) {
+            recursionGetCategoryId(category.getParentCid(), list);
+        }
     }
 
     /**

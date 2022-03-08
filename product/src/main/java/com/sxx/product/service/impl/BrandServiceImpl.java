@@ -9,6 +9,7 @@ import com.sxx.common.utils.Query;
 import com.sxx.product.entity.Brand;
 import com.sxx.product.mapper.BrandMapper;
 import com.sxx.product.service.BrandService;
+import com.sxx.product.service.CategoryBrandRelationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 
 /**
- * @author shenxianxin
  * 针对表【pms_brand(品牌)】的数据库操作Service实现
+ *
+ * @author shenxianxin
  * @since 2021-12-02 18:42:19
  */
 @Service
 @RequiredArgsConstructor
 public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand>
         implements BrandService {
+
+    private final CategoryBrandRelationService relationService;
 
     /**
      * 列表查询
@@ -37,12 +41,11 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand>
         String key = (String) params.get("key");
         QueryWrapper<Brand> queryWrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(key)) {
-            queryWrapper.eq("brand_id", key).or().like("name", key);
+            queryWrapper.eq("brand_id", key).or().like("name", key).or().eq("first_letter", key);
         }
         IPage<Brand> page = this.page(
                 new Query<Brand>().getPage(params),
                 queryWrapper
-
         );
         return new PageUtils(page);
     }
@@ -56,8 +59,14 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand>
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateDetail(Brand brand) {
-        //保证冗余字段的数据一致
+        //TODO 保证冗余字段的数据一致
         this.updateById(brand);
+        String brandName = brand.getName();
+        if (!StringUtils.isEmpty(brandName)) {
+            //更新关联表品牌信息
+            relationService.updateBrandName(brand.getBrandId(), brandName);
+        }
+
     }
 }
 

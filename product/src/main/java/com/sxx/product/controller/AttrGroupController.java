@@ -3,10 +3,12 @@ package com.sxx.product.controller;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.AttrGroup;
 import com.sxx.product.service.AttrGroupService;
+import com.sxx.product.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Map;
 
 
@@ -21,6 +23,8 @@ import java.util.Map;
 public class AttrGroupController {
 
     private final AttrGroupService attrGroupService;
+
+    private final CategoryService categoryService;
 
     /**
      * 获取属性分组列表
@@ -63,13 +67,28 @@ public class AttrGroupController {
     /**
      * 根据分组ID删除对应属性
      *
-     * @param id 属性ID
+     * @param ids 属性ID
      * @return 是否被删除
      */
     @PostMapping("delete")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity delete(Double id) {
-        boolean flag = attrGroupService.removeById(id);
+    public ResponseEntity delete(@RequestBody Long[] ids) {
+        boolean flag = attrGroupService.removeByIds(Arrays.asList(ids));
         return flag ? ResponseEntity.ok("分组删除成功") : ResponseEntity.error("分组删除失败");
     }
+
+    /**
+     * 根据categoryID查询详细信息进行回写
+     *
+     * @param categoryId ID
+     * @return 回写分组详细信息
+     */
+    @GetMapping("info/{categoryId}")
+    public ResponseEntity info(@PathVariable Long categoryId) {
+        AttrGroup group = attrGroupService.getById(categoryId);
+        Long[] categoryPath = categoryService.findCategoryPathById(group.getCatelogId());
+        group.setCatelogPath(categoryPath);
+        return ResponseEntity.ok("attrGroup", group);
+    }
+
 }
