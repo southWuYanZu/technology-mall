@@ -5,16 +5,24 @@
 <mapper namespace="com.sxx.product.mapper.AttrGroupMapper">
 
     <resultMap id="BaseResultMap" type="com.sxx.product.entity.AttrGroup">
-            <id property="attrGroupId" column="attr_group_id" jdbcType="BIGINT"/>
-            <result property="attrGroupName" column="attr_group_name" jdbcType="CHAR"/>
-            <result property="sort" column="sort" jdbcType="INTEGER"/>
-            <result property="descript" column="descript" jdbcType="VARCHAR"/>
-            <result property="icon" column="icon" jdbcType="VARCHAR"/>
-            <result property="catelogId" column="catelog_id" jdbcType="BIGINT"/>
+        <id property="attrGroupId" column="attr_group_id" jdbcType="BIGINT"/>
+        <result property="attrGroupName" column="attr_group_name" jdbcType="CHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="descript" column="descript" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="catelogId" column="catelog_id" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         attr_group_id,attr_group_name,sort,
         descript,icon,catelog_id
     </sql>
+    <delete id="deleteBatchByCatelogIds" parameterType="list">
+        DELETE
+        FROM MALL_PMS.pms_attr_group
+        WHERE catelog_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

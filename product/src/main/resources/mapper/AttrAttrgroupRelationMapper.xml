@@ -5,14 +5,22 @@
 <mapper namespace="com.sxx.product.mapper.AttrAttrgroupRelationMapper">
 
     <resultMap id="BaseResultMap" type="com.sxx.product.entity.AttrAttrgroupRelation">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="attrId" column="attr_id" jdbcType="BIGINT"/>
-            <result property="attrGroupId" column="attr_group_id" jdbcType="BIGINT"/>
-            <result property="attrSort" column="attr_sort" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="attrId" column="attr_id" jdbcType="BIGINT"/>
+        <result property="attrGroupId" column="attr_group_id" jdbcType="BIGINT"/>
+        <result property="attrSort" column="attr_sort" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,attr_id,attr_group_id,
         attr_sort
     </sql>
+    <delete id="deleteBatchByAttrIds" parameterType="list">
+        DELETE
+        FROM MALL_PMS.pms_attr_attrgroup_relation
+        WHERE attr_id IN
+        <foreach collection="list" index="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

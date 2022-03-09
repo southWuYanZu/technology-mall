@@ -3,7 +3,6 @@ package com.sxx.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  *
  * @author Mark sunlightcs@gmail.com
  */
-public class PageUtils implements Serializable {
+public class PageUtils  {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 总记录数

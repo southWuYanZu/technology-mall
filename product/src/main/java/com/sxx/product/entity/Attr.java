@@ -4,14 +4,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 商品属性
+ *
+ * @author Mr.shen
  * @TableName pms_attr
  */
-@TableName(value ="pms_attr")
+@TableName(value = "pms_attr")
 @Data
 public class Attr implements Serializable {
     /**
@@ -90,15 +93,15 @@ public class Attr implements Serializable {
         }
         Attr other = (Attr) that;
         return (this.getAttrId() == null ? other.getAttrId() == null : this.getAttrId().equals(other.getAttrId()))
-            && (this.getAttrName() == null ? other.getAttrName() == null : this.getAttrName().equals(other.getAttrName()))
-            && (this.getSearchType() == null ? other.getSearchType() == null : this.getSearchType().equals(other.getSearchType()))
-            && (this.getValueType() == null ? other.getValueType() == null : this.getValueType().equals(other.getValueType()))
-            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getValueSelect() == null ? other.getValueSelect() == null : this.getValueSelect().equals(other.getValueSelect()))
-            && (this.getAttrType() == null ? other.getAttrType() == null : this.getAttrType().equals(other.getAttrType()))
-            && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
-            && (this.getCatelogId() == null ? other.getCatelogId() == null : this.getCatelogId().equals(other.getCatelogId()))
-            && (this.getShowDesc() == null ? other.getShowDesc() == null : this.getShowDesc().equals(other.getShowDesc()));
+                && (this.getAttrName() == null ? other.getAttrName() == null : this.getAttrName().equals(other.getAttrName()))
+                && (this.getSearchType() == null ? other.getSearchType() == null : this.getSearchType().equals(other.getSearchType()))
+                && (this.getValueType() == null ? other.getValueType() == null : this.getValueType().equals(other.getValueType()))
+                && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
+                && (this.getValueSelect() == null ? other.getValueSelect() == null : this.getValueSelect().equals(other.getValueSelect()))
+                && (this.getAttrType() == null ? other.getAttrType() == null : this.getAttrType().equals(other.getAttrType()))
+                && (this.getEnable() == null ? other.getEnable() == null : this.getEnable().equals(other.getEnable()))
+                && (this.getCatelogId() == null ? other.getCatelogId() == null : this.getCatelogId().equals(other.getCatelogId()))
+                && (this.getShowDesc() == null ? other.getShowDesc() == null : this.getShowDesc().equals(other.getShowDesc()));
     }
 
     @Override
@@ -120,22 +123,20 @@ public class Attr implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", attrId=").append(attrId);
-        sb.append(", attrName=").append(attrName);
-        sb.append(", searchType=").append(searchType);
-        sb.append(", valueType=").append(valueType);
-        sb.append(", icon=").append(icon);
-        sb.append(", valueSelect=").append(valueSelect);
-        sb.append(", attrType=").append(attrType);
-        sb.append(", enable=").append(enable);
-        sb.append(", catelogId=").append(catelogId);
-        sb.append(", showDesc=").append(showDesc);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return getClass().getSimpleName() +
+                " [" +
+                "Hash = " + hashCode() +
+                ", attrId=" + attrId +
+                ", attrName=" + attrName +
+                ", searchType=" + searchType +
+                ", valueType=" + valueType +
+                ", icon=" + icon +
+                ", valueSelect=" + valueSelect +
+                ", attrType=" + attrType +
+                ", enable=" + enable +
+                ", catelogId=" + catelogId +
+                ", showDesc=" + showDesc +
+                ", serialVersionUID=" + serialVersionUID +
+                "]";
     }
 }

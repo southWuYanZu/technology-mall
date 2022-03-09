@@ -3,6 +3,8 @@ package com.sxx.product.mapper;
 import com.sxx.product.entity.AttrGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
 * @author shenxianxin
 *  针对表【pms_attr_group(属性分组)】的数据库操作Mapper
@@ -11,6 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface AttrGroupMapper extends BaseMapper<AttrGroup> {
 
+    /**
+     * 根据品类Id删除对应分组信息
+     * @param cateIds 品类id
+     * @return 删除状态
+     */
+    boolean deleteBatchByCatelogIds(List<Long> cateIds);
 }
 
 
