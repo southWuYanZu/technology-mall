@@ -11,7 +11,6 @@ import com.sxx.product.entity.Attr;
 import com.sxx.product.entity.AttrAttrgroupRelation;
 import com.sxx.product.entity.AttrGroup;
 import com.sxx.product.enums.ProductConstantAndEnum;
-import com.sxx.product.mapper.AttrAttrgroupRelationMapper;
 import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.service.AttrGroupService;
 import com.sxx.product.service.AttrService;
@@ -35,8 +34,6 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
         implements AttrGroupService {
 
     private final AttrAttrGroupRelationServiceImpl relationService;
-
-    private final AttrAttrgroupRelationMapper relationMapper;
 
     private final AttrService attrService;
 
@@ -93,9 +90,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
                 .notIn(ProductConstantAndEnum.COLUMN_ATTR_ID, attrs);
         String key = (String) params.get("key");
         if (!StringUtils.isNullOrEmpty(key)) {
-            wrapper.and(condition->{
-                condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key);
-            });
+            wrapper.and(condition-> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key));
         }
         IPage<Attr> iPage = new Query<Attr>().getPage(params);
         IPage<Attr> page = attrService.page(iPage, wrapper);

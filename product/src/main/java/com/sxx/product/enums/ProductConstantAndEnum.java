@@ -20,6 +20,9 @@ public class ProductConstantAndEnum {
     public static final String COLUMN_ATTR_GROUP_ID = "attr_group_id";
     public static final String COLUMN_ATTR_GROUP_NAME = "attr_group_name";
 
+    /**
+     * 商品属性枚举类
+     */
     public enum AttrEnum implements BaseEnum {
         /**
          * 基本属性
@@ -33,12 +36,12 @@ public class ProductConstantAndEnum {
         /**
          * 商品熟悉编码
          */
-        private int code;
+        private final int code;
 
         /**
          * 商品熟悉信息
          */
-        private String value;
+        private final String value;
 
         @Override
         public int getCode() {
@@ -55,8 +58,6 @@ public class ProductConstantAndEnum {
             this.value = value;
         }
 
-        AttrEnum() {
-        }
     }
 
 }
