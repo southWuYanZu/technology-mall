@@ -42,7 +42,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand>
         String key = (String) params.get("key");
         QueryWrapper<Brand> queryWrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(key)) {
-            queryWrapper.eq(ProductConstantAndEnum.COLUMN_BRAND_ID, key).or().like("name", key)
+            queryWrapper.eq(ProductConstantAndEnum.COLUMN_BRAND_ID, key).or().like(ProductConstantAndEnum.COLUMN_NAME, key)
                     .or().eq(ProductConstantAndEnum.COLUMN_FIRST_LETTER, key);
         }
         IPage<Brand> page = this.page(
@@ -68,7 +68,6 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand>
             //更新关联表品牌信息
             relationService.updateBrandName(brand.getBrandId(), brandName);
         }
-
     }
 }
 

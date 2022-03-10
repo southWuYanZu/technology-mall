@@ -102,6 +102,20 @@ public class AttrGroupController {
     }
 
     /**
+     * 指定分组下新增指定属性
+     *
+     * @param relations 分组和属性关联关系
+     * @return 新增状态
+     */
+    @PostMapping("attr/relation")
+    @ApiOperation("指定商品属性新增属性内容")
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseEntity saveAttr(@RequestBody List<AttrAttrgroupRelation> relations) {
+        boolean flag = attrGroupService.saveAttrRelationship(relations);
+        return flag ? ResponseEntity.ok("属性新增成功") : ResponseEntity.error("属性新增失败");
+    }
+
+    /**
      * 修改属性分组
      *
      * @param attrGroup 分组信息

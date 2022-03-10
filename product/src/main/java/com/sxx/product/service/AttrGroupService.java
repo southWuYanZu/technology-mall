@@ -1,9 +1,11 @@
 package com.sxx.product.service;
 
 import com.sxx.common.utils.ResponseEntity;
+import com.sxx.product.entity.AttrAttrgroupRelation;
 import com.sxx.product.entity.AttrGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,4 +41,13 @@ public interface AttrGroupService extends IService<AttrGroup> {
      * @return 其他商品属性集
      */
     ResponseEntity getNotInAttrGroupList(Long attrGroupId, Map<String, Object> params);
+
+
+    /**
+     * 指定分组下新增指定属性
+     *
+     * @param relations 分组和属性关联关系
+     * @return 新增状态
+     */
+    boolean saveAttrRelationship(List<AttrAttrgroupRelation> relations);
 }

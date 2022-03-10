@@ -75,11 +75,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
 
     @Override
     public ResponseEntity getNotInAttrGroupList(Long attrGroupId, Map<String, Object> params) {
-        Attr attr = attrService.getById(attrGroupId);
-        Long catelogId = attr.getCatelogId();
+        AttrGroup attrGroup = this.getById(attrGroupId);
+        assert ObjectUtils.isEmpty(attrGroup);
+        Long catelogId = attrGroup.getCatelogId();
         List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
                 .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrGroupId));
+        //已关联,不做展示的属性
         List<Long> attrIdList = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
+        //同一分类下排除不做展示后的属性
         List<Long> attrs = attrService.list(new QueryWrapper<Attr>()
                 .eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId)
                 .notIn(ProductConstantAndEnum.COLUMN_ATTR_ID, attrIdList))
@@ -87,14 +90,19 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
                 .collect(Collectors.toList());
         QueryWrapper<Attr> wrapper = new QueryWrapper<Attr>()
                 .eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId)
-                .notIn(ProductConstantAndEnum.COLUMN_ATTR_ID, attrs);
+                .in(ProductConstantAndEnum.COLUMN_ATTR_ID, attrs);
         String key = (String) params.get("key");
         if (!StringUtils.isNullOrEmpty(key)) {
             wrapper.and(condition-> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key));
         }
         IPage<Attr> iPage = new Query<Attr>().getPage(params);
         IPage<Attr> page = attrService.page(iPage, wrapper);
-        return ResponseEntity.ok("page", page);
+        return ResponseEntity.ok("page", new PageUtils(page));
+    }
+
+    @Override
+    public boolean saveAttrRelationship(List<AttrAttrgroupRelation> relations) {
+        return relationService.saveBatch(relations);
     }
 }
 

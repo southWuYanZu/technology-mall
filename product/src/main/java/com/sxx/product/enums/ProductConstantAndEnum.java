@@ -3,6 +3,8 @@ package com.sxx.product.enums;
 import com.sxx.common.utils.BaseEnum;
 
 /**
+ * 产品枚举常量类
+ *
  * @author Mr.shen
  * @since 2022/03/09 下午 8:27
  */
@@ -11,6 +13,7 @@ public class ProductConstantAndEnum {
     /**
      * 数据库列名
      */
+    public static final String COLUMN_NAME = "name";
     public static final String COLUMN_ATTR_ID = "attr_id";
     public static final String COLUMN_BRAND_ID = "brand_id";
     public static final String COLUMN_ATTR_NAME = "attr_name";
