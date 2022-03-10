@@ -22,4 +22,21 @@ public interface AttrGroupService extends IService<AttrGroup> {
      * @return 数据集
      */
     ResponseEntity queryPage(Map<String, Object> params, Long catId);
+
+    /**
+     * 根据分组id 查询当前分组下所有商品属性
+     *
+     * @param attrgroupId 分组id
+     * @return 商品属性列表
+     */
+    ResponseEntity attrRelationShip(Long attrgroupId);
+
+    /**
+     * 查询没有在当前分组下的所有商品属性
+     *
+     * @param attrGroupId 当前分组id
+     * @param params      分页条件
+     * @return 其他商品属性集
+     */
+    ResponseEntity getNotInAttrGroupList(Long attrGroupId, Map<String, Object> params);
 }

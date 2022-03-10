@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.product.entity.Brand;
+import com.sxx.product.enums.ProductConstantAndEnum;
 import com.sxx.product.mapper.BrandMapper;
 import com.sxx.product.service.BrandService;
 import com.sxx.product.service.CategoryBrandRelationService;
@@ -41,7 +42,8 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand>
         String key = (String) params.get("key");
         QueryWrapper<Brand> queryWrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(key)) {
-            queryWrapper.eq("brand_id", key).or().like("name", key).or().eq("first_letter", key);
+            queryWrapper.eq(ProductConstantAndEnum.COLUMN_BRAND_ID, key).or().like("name", key)
+                    .or().eq(ProductConstantAndEnum.COLUMN_FIRST_LETTER, key);
         }
         IPage<Brand> page = this.page(
                 new Query<Brand>().getPage(params),

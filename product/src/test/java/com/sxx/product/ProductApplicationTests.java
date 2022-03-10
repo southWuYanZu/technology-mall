@@ -1,7 +1,7 @@
 package com.sxx.product;
 
 import com.sxx.common.utils.EnumUtils;
-import com.sxx.product.enums.ProductEnum;
+import com.sxx.product.enums.ProductConstantAndEnum;
 import com.sxx.product.service.BrandService;
 import com.sxx.product.service.CategoryService;
 import org.junit.jupiter.api.Test;
@@ -25,8 +25,8 @@ class ProductApplicationTests {
 
     @Test
     void enumTest() {
-        System.out.println(EnumUtils.getCodeByValue("基本属性", ProductEnum.AttrEnum.class));
-        System.out.println(EnumUtils.getValueByCode(1, ProductEnum.AttrEnum.class));
+        System.out.println(EnumUtils.getCodeByValue("基本属性", ProductConstantAndEnum.AttrEnum.class));
+        System.out.println(EnumUtils.getValueByCode(1, ProductConstantAndEnum.AttrEnum.class));
     }
 
 

@@ -23,4 +23,15 @@
             #{item}
         </foreach>
     </delete>
+
+    <delete id="deleteByAttrGroupIdAndAttrIdIn">
+        delete from MALL_PMS.pms_attr_attrgroup_relation
+        where
+        attr_group_id = #{attrGroupId,jdbcType=NUMERIC}
+        AND attr_id in
+        <foreach collection="attrIdList" item="item" open="(" close=")" separator=",">
+            #{item,jdbcType=NUMERIC}
+        </foreach>
+    </delete>
+
 </mapper>

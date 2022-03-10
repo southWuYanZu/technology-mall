@@ -10,7 +10,7 @@ import com.sxx.product.entity.Attr;
 import com.sxx.product.entity.AttrAttrgroupRelation;
 import com.sxx.product.entity.AttrGroup;
 import com.sxx.product.entity.Category;
-import com.sxx.product.enums.ProductEnum;
+import com.sxx.product.enums.ProductConstantAndEnum;
 import com.sxx.product.mapper.AttrAttrgroupRelationMapper;
 import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.mapper.AttrMapper;
@@ -48,7 +48,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
 
     private final CategoryMapper categoryMapper;
 
-    private static final String COLUMN_ATTR_ID = "attr_id";
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -58,7 +57,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
         boolean flag = this.save(attr);
         AttrAttrgroupRelation relation = new AttrAttrgroupRelation();
         //商品属性才具有分组信息
-        if (!StringUtils.isEmpty(attrVo.getAttrGroupId()) && ProductEnum.AttrEnum.ATTR_TYPE_BASE.getCode() == attrVo.getAttrType()) {
+        if (!StringUtils.isEmpty(attrVo.getAttrGroupId()) && ProductConstantAndEnum.AttrEnum.ATTR_TYPE_BASE.getCode() == attrVo.getAttrType()) {
             relation.setAttrGroupId(attrVo.getAttrGroupId());
             relation.setAttrId(attr.getAttrId());
             relationMapper.insert(relation);
@@ -70,12 +69,13 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
     public ResponseEntity queryPage(Map<String, Object> params, String attrType, Long catelogId) {
         String key = (String) params.get("key");
         QueryWrapper<Attr> wrapper = new QueryWrapper<>();
-        wrapper.eq("attr_type", "base".equals(attrType) ? 1 : 0);
+        wrapper.eq(ProductConstantAndEnum.COLUMN_ATTR_TYPE, "base".equals(attrType) ? 1 : 0);
         if (catelogId != 0) {
-            wrapper.eq("catelog_id", catelogId);
+            wrapper.eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId);
         }
         if (!StringUtils.isEmpty(key)) {
-            wrapper.and(condition -> condition.likeRight("attr_name", key).or().eq(COLUMN_ATTR_ID, key));
+            wrapper.and(condition -> condition.likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key)
+                    .or().eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key));
         }
 
         IPage<Attr> iPage = this.page(new Query<Attr>().getPage(params), wrapper);
@@ -85,10 +85,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
             AttrResponseVo attrResponseVo = new AttrResponseVo();
             BeanUtils.copyProperties(attr, attrResponseVo);
             //商品才具有分组信息
-            if (attr.getAttrType() == ProductEnum.AttrEnum.ATTR_TYPE_BASE.getCode()) {
+            if (attr.getAttrType() == ProductConstantAndEnum.AttrEnum.ATTR_TYPE_BASE.getCode()) {
                 //获取分组信息
                 AttrAttrgroupRelation relation = relationMapper.selectOne(new QueryWrapper<AttrAttrgroupRelation>()
-                        .eq(COLUMN_ATTR_ID, attr.getAttrId()));
+                        .eq(ProductConstantAndEnum.COLUMN_ATTR_ID, attr.getAttrId()));
                 if (relation != null) {
                     AttrGroup attrGroup = attrGroupMapper.selectById(relation.getAttrGroupId());
                     if (!ObjectUtils.isEmpty(attrGroup)) {
@@ -117,7 +117,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
         BeanUtils.copyProperties(attr, responseVo);
         //获取分组信息
         AttrAttrgroupRelation relation = relationMapper.selectOne(new QueryWrapper<AttrAttrgroupRelation>()
-                .eq(COLUMN_ATTR_ID, attr.getAttrId()));
+                .eq(ProductConstantAndEnum.COLUMN_ATTR_ID, attr.getAttrId()));
         if (!ObjectUtils.isEmpty(relation)) {
             Long attrGroupId = relation.getAttrGroupId();
             AttrGroup attrGroup = attrGroupMapper.selectById(attrGroupId);
@@ -143,11 +143,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
         AttrAttrgroupRelation relation = new AttrAttrgroupRelation();
         boolean state = this.updateById(attr);
         //更新关联关系表
-        if (ProductEnum.AttrEnum.ATTR_TYPE_BASE.getCode() == attrVo.getAttrType()) {
+        if (ProductConstantAndEnum.AttrEnum.ATTR_TYPE_BASE.getCode() == attrVo.getAttrType()) {
             relation.setAttrId(attrVo.getAttrId());
             relation.setAttrGroupId(attrVo.getAttrGroupId());
             int update = relationMapper.update(relation, new QueryWrapper<AttrAttrgroupRelation>()
-                    .eq(COLUMN_ATTR_ID, attrVo.getAttrId()));
+                    .eq(ProductConstantAndEnum.COLUMN_ATTR_ID, attrVo.getAttrId()));
             if (update == 0) {
                 relationMapper.insert(relation);
             }
@@ -158,7 +158,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
         attrGroup.setAttrGroupId(attrVo.getAttrGroupId());
         attrGroup.setCatelogId(attrVo.getCatelogId());
         attrGroupMapper.update(attrGroup, new QueryWrapper<AttrGroup>()
-                .eq("attr_group_id", attrVo.getAttrGroupId()));
+                .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrVo.getAttrGroupId()));
         return state;
     }
 

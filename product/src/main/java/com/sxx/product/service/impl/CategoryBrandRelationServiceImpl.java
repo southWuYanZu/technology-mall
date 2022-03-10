@@ -3,6 +3,7 @@ package com.sxx.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxx.product.entity.CategoryBrandRelation;
+import com.sxx.product.enums.ProductConstantAndEnum;
 import com.sxx.product.mapper.BrandMapper;
 import com.sxx.product.mapper.CategoryMapper;
 import com.sxx.product.service.CategoryBrandRelationService;
@@ -56,7 +57,7 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         CategoryBrandRelation relation = new CategoryBrandRelation();
         relation.setBrandId(brandId);
         relation.setBrandName(brandName);
-        this.update(relation, new QueryWrapper<CategoryBrandRelation>().eq("brand_id", brandId));
+        this.update(relation, new QueryWrapper<CategoryBrandRelation>().eq(ProductConstantAndEnum.COLUMN_BRAND_ID, brandId));
     }
 }
 

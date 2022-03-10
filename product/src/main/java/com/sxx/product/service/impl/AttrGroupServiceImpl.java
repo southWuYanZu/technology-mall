@@ -7,12 +7,21 @@ import com.mysql.cj.util.StringUtils;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.common.utils.ResponseEntity;
+import com.sxx.product.entity.Attr;
+import com.sxx.product.entity.AttrAttrgroupRelation;
 import com.sxx.product.entity.AttrGroup;
+import com.sxx.product.enums.ProductConstantAndEnum;
+import com.sxx.product.mapper.AttrAttrgroupRelationMapper;
 import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.service.AttrGroupService;
+import com.sxx.product.service.AttrService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 针对表【pms_attr_group(属性分组)】的数据库操作Service实现
@@ -21,8 +30,15 @@ import java.util.Map;
  * @since 2021-12-02 18:42:19
  */
 @Service
+@RequiredArgsConstructor
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup>
         implements AttrGroupService {
+
+    private final AttrAttrGroupRelationServiceImpl relationService;
+
+    private final AttrAttrgroupRelationMapper relationMapper;
+
+    private final AttrService attrService;
 
     /**
      * 获取属性分组列表
@@ -36,13 +52,54 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
         String key = (String) params.get("key");
         QueryWrapper<AttrGroup> wrapper = new QueryWrapper<>();
         if (catId != 0) {
-            wrapper.eq("cateLog_id", catId);
+            wrapper.eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catId);
         }
         if (!StringUtils.isNullOrEmpty(key)) {
-            wrapper.and(condition -> condition.eq("attr_group_name", key).or().likeRight("descript", key));
+            wrapper.and(condition -> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_NAME, key).or().likeRight("descript", key));
         }
         IPage<AttrGroup> page = this.page(new Query<AttrGroup>().getPage(params), wrapper);
-        return ResponseEntity.ok("page",new PageUtils(page));
+        return ResponseEntity.ok("page", new PageUtils(page));
+    }
+
+    @Override
+    public ResponseEntity attrRelationShip(Long attrgroupId) {
+        if (attrgroupId == null) {
+            return ResponseEntity.error("商品信息加载失败,商品分组信息不能为空");
+        }
+        List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
+                .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrgroupId));
+        List<Long> attrIds = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
+        List<Attr> attrs = null;
+        if (!ObjectUtils.isEmpty(attrIds)) {
+            attrs = attrService.listByIds(attrIds);
+        }
+        return ResponseEntity.ok("data", attrs);
+    }
+
+    @Override
+    public ResponseEntity getNotInAttrGroupList(Long attrGroupId, Map<String, Object> params) {
+        Attr attr = attrService.getById(attrGroupId);
+        Long catelogId = attr.getCatelogId();
+        List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
+                .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrGroupId));
+        List<Long> attrIdList = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
+        List<Long> attrs = attrService.list(new QueryWrapper<Attr>()
+                .eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId)
+                .notIn(ProductConstantAndEnum.COLUMN_ATTR_ID, attrIdList))
+                .stream().map(Attr::getAttrId)
+                .collect(Collectors.toList());
+        QueryWrapper<Attr> wrapper = new QueryWrapper<Attr>()
+                .eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId)
+                .notIn(ProductConstantAndEnum.COLUMN_ATTR_ID, attrs);
+        String key = (String) params.get("key");
+        if (!StringUtils.isNullOrEmpty(key)) {
+            wrapper.and(condition->{
+                condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key);
+            });
+        }
+        IPage<Attr> iPage = new Query<Attr>().getPage(params);
+        IPage<Attr> page = attrService.page(iPage, wrapper);
+        return ResponseEntity.ok("page", page);
     }
 }
 
