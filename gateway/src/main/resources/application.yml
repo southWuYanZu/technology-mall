@@ -8,12 +8,21 @@ spring:
           - Path=/api/thirdparty/**
           filters:
           - RewritePath=/api/?(?<segment>.*), /$\{segment}
+
+        - id: member_route
+          uri: lb://member
+          predicates:
+          - Path=/api/member/**
+          filters:
+          - RewritePath=/api/?(?<segment>.*), /$\{segment}
+
         - id: product_route
           uri: lb://product
           predicates:
           - Path=/api/product/**
           filters:
           - RewritePath=/api/?(?<segment>.*), /$\{segment}
+
         - id: admin_route
           uri: lb://admin
           predicates:

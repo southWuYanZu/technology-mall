@@ -4,9 +4,10 @@ import com.sxx.ware.entity.WareInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
-* @author shenxianxin
-*  针对表【wms_ware_info(仓库信息)】的数据库操作Service
-* @since 2021-12-02 18:50:01
+* 针对表【wms_ware_info(仓库信息)】的数据库操作Service
+*
+* @author Mr.shen
+* @since 2022-03-10 21:53:27
 */
 public interface WareInfoService extends IService<WareInfo> {
 
