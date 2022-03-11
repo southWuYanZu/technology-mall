@@ -15,7 +15,7 @@
             <result property="region" column="region" jdbcType="VARCHAR"/>
             <result property="detailAddress" column="detail_address" jdbcType="VARCHAR"/>
             <result property="areacode" column="areacode" jdbcType="VARCHAR"/>
-            <result property="defaultStatus" column="default_status" jdbcType="BOOLEAN"/>
+            <result property="defaultStatus" column="default_status" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

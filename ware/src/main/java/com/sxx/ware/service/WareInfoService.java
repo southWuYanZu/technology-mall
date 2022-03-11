@@ -1,7 +1,8 @@
 package com.sxx.ware.service;
 
-import com.sxx.ware.entity.WareInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sxx.common.utils.ResponseEntity;
+import com.sxx.ware.entity.WareInfo;
 
 import java.util.Map;
 
