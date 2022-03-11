@@ -1,5 +1,6 @@
 package com.sxx.product.service;
 
+import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.CategoryBrandRelation;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -25,4 +26,13 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
      * @param brandName 品牌名称
      */
     void updateBrandName(Long brandId, String brandName);
+
+
+    /**
+     * 根据品类获取旗下品牌
+     *
+     * @param catId 品类id
+     * @return 品牌结果集
+     */
+    ResponseEntity getBrandByCategory(Long catId);
 }

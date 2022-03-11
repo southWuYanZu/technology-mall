@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(成长值变化历史记录)")
-@RequestMapping("GrowthChangeHistory")
+@RequestMapping("member/growthChangeHistory")
 public class GrowthChangeHistoryController {
 
     private final GrowthChangeHistoryService growthChangeHistoryService;

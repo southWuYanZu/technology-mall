@@ -1,8 +1,12 @@
 package com.sxx.member.controller;
 
+import com.sxx.common.utils.ResponseEntity;
+import com.sxx.member.entity.IntegrationChangeHistory;
+import com.sxx.member.service.IntegrationChangeHistoryService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import io.swagger.annotations.ApiOperation;1
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

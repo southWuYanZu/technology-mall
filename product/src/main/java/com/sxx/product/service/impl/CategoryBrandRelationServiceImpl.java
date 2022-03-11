@@ -2,15 +2,18 @@ package com.sxx.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.CategoryBrandRelation;
 import com.sxx.product.enums.ProductConstantAndEnum;
 import com.sxx.product.mapper.BrandMapper;
+import com.sxx.product.mapper.CategoryBrandRelationMapper;
 import com.sxx.product.mapper.CategoryMapper;
 import com.sxx.product.service.CategoryBrandRelationService;
-import com.sxx.product.mapper.CategoryBrandRelationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author shenxianxin
@@ -58,6 +61,12 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         relation.setBrandId(brandId);
         relation.setBrandName(brandName);
         this.update(relation, new QueryWrapper<CategoryBrandRelation>().eq(ProductConstantAndEnum.COLUMN_BRAND_ID, brandId));
+    }
+
+    @Override
+    public ResponseEntity getBrandByCategory(Long catId) {
+        List<CategoryBrandRelation> brands = this.list(new QueryWrapper<CategoryBrandRelation>().eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catId));
+        return ResponseEntity.ok("data", brands);
     }
 }
 

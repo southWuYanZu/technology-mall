@@ -41,6 +41,18 @@ public class CategoryBrandRelationController {
     }
 
     /**
+     * 根据品类获取旗下品牌
+     *
+     * @param catId 品类id
+     * @return 品牌结果集
+     */
+    @GetMapping("brands/list")
+    @ApiOperation("根据品类获取旗下品牌")
+    public ResponseEntity getBrandByCategory(@RequestParam Long catId) {
+        return relationService.getBrandByCategory(catId);
+    }
+
+    /**
      * 保存关联关系
      *
      * @param relation 新增关联实体
