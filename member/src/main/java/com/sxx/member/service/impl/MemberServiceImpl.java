@@ -27,8 +27,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member>
     @Override
     public ResponseEntity queryPage(Map<String, Object> params) {
         String key = (String) params.get("key");
-        QueryWrapper<Member> wrapper = new QueryWrapper<>();
+        QueryWrapper<Member> wrapper = null;
         if (!StringUtils.isEmpty(key)) {
+            wrapper = new QueryWrapper<>();
             wrapper.eq(MemberConstantAndEnum.COLUMN_ID, key).or().like(MemberConstantAndEnum.COLUMN_USERNAME, key).or()
                     .likeRight(MemberConstantAndEnum.COLUMN_NICKNAME, key);
         }
