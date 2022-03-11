@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(会员)")
-@RequestMapping("member")
+@RequestMapping("member/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -38,6 +38,7 @@ public class MemberController {
     public ResponseEntity list(@RequestParam Map<String, Object> params) {
         return memberService.queryPage(params);
     }
+
 
     /**
      * 会员新增

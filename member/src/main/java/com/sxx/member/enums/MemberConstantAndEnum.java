@@ -12,6 +12,7 @@ public class MemberConstantAndEnum {
      * 表列名
      */
     public static final String COLUMN_ID = "id";
+    public static final String COLUMN_NAME = "name";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_NICKNAME = "nickname";
 }
