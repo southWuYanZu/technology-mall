@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mysql.cj.util.StringUtils;
+import com.sxx.common.exception.SqlException;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.common.utils.ResponseEntity;
@@ -14,7 +15,9 @@ import com.sxx.product.enums.ProductConstantAndEnum;
 import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.service.AttrGroupService;
 import com.sxx.product.service.AttrService;
+import com.sxx.product.vo.AttrGroupFindAttrVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -93,7 +96,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
                 .in(ProductConstantAndEnum.COLUMN_ATTR_ID, attrs);
         String key = (String) params.get("key");
         if (!StringUtils.isNullOrEmpty(key)) {
-            wrapper.and(condition-> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key));
+            wrapper.and(condition -> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key));
         }
         IPage<Attr> iPage = new Query<Attr>().getPage(params);
         IPage<Attr> page = attrService.page(iPage, wrapper);
@@ -103,6 +106,35 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
     @Override
     public boolean saveAttrRelationship(List<AttrAttrgroupRelation> relations) {
         return relationService.saveBatch(relations);
+    }
+
+    @Override
+    public ResponseEntity getAttrByCatelogId(long catelogId) {
+        //根据品类查询当前分组
+        List<AttrGroup> attrGroups = this.list(new QueryWrapper<AttrGroup>().eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId));
+        List<Long> groupIds = attrGroups.stream().map(AttrGroup::getAttrGroupId).collect(Collectors.toList());
+        if (ObjectUtils.isEmpty(groupIds)) {
+            throw new SqlException("当前品类信息异,请检查订单关联关系是否正常!");
+        }
+
+        List<AttrGroupFindAttrVo> attrVos = attrGroups.stream().map(attrGroup -> {
+            AttrGroupFindAttrVo groupFindAttrVo = new AttrGroupFindAttrVo();
+            BeanUtils.copyProperties(attrGroup, groupFindAttrVo);
+            //根据分类查询所关联的商品属性信息
+            List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
+                    .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrGroup.getAttrGroupId()));
+            if (!ObjectUtils.isEmpty(relations)) {
+                List<Long> attrIds = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
+                if (!ObjectUtils.isEmpty(attrIds)) {
+                    List<Attr> attrs = attrService.listByIds(attrIds);
+                    if (!ObjectUtils.isEmpty(attrs)) {
+                        groupFindAttrVo.setAttrList(attrs);
+                    }
+                }
+            }
+            return groupFindAttrVo;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok("data", attrVos);
     }
 }
 

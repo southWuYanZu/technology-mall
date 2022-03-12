@@ -42,7 +42,6 @@ public interface AttrGroupService extends IService<AttrGroup> {
      */
     ResponseEntity getNotInAttrGroupList(Long attrGroupId, Map<String, Object> params);
 
-
     /**
      * 指定分组下新增指定属性
      *
@@ -50,4 +49,12 @@ public interface AttrGroupService extends IService<AttrGroup> {
      * @return 新增状态
      */
     boolean saveAttrRelationship(List<AttrAttrgroupRelation> relations);
+
+    /**
+     * 根据分类ID获取指定分组下的所以属性
+     *
+     * @param catelogId 分类ID
+     * @return 商品属性结果集
+     */
+    ResponseEntity getAttrByCatelogId(long catelogId);
 }

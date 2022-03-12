@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * sku信息
  *
+ * @author Mr.shen
 
  */
 @RestController

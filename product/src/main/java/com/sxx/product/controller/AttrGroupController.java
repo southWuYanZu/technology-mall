@@ -88,6 +88,18 @@ public class AttrGroupController {
     }
 
     /**
+     * 根据分类ID获取指定分组下的所以属性
+     *
+     * @param catelogId 分类ID
+     * @return 商品属性结果集
+     */
+    @GetMapping("{catelogId}/withAttr")
+    @ApiOperation("获取指定分组下的所以属性")
+    public ResponseEntity withAttr(@PathVariable long catelogId) {
+        return attrGroupService.getAttrByCatelogId(catelogId);
+    }
+
+    /**
      * 新增属性分组
      *
      * @param attrGroup 分组信息
