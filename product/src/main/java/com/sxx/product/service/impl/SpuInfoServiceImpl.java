@@ -9,6 +9,7 @@ import com.sxx.product.mapper.SpuInfoMapper;
 import com.sxx.product.service.SpuImagesService;
 import com.sxx.product.service.SpuInfoDescService;
 import com.sxx.product.service.SpuInfoService;
+import com.sxx.product.vo.Images;
 import com.sxx.product.vo.SpuSaveVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author shenxianxin
@@ -46,12 +48,19 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
         desc.setDecript(String.join(",", description));
         descService.save(desc);
         //保存spu的图片集
-        List<String> images = spuSaveVo.getImages();
-        images.stream().map(item -> {
-            SpuImages spuImages = new SpuImages();
-
-        })
-        imagesService.save()
+        spuSaveVo.getSkus().forEach(item -> {
+            List<Images> images = item.getImages();
+            List<SpuImages> spuImagesList = images.stream().map(image -> {
+                SpuImages spuImages = new SpuImages();
+                spuImages.setImgUrl(image.getImgUrl());
+                spuImages.setDefaultImg(image.getDefaultImg());
+                spuImages.setSpuId(spuInfo.getId());
+                spuImages.setImgName(item.getSkuTitle());
+                return spuImages;
+            }).collect(Collectors.toList());
+            imagesService.saveBatch(spuImagesList);
+        });
+        //保存sku信息
         return null;
     }
 }
