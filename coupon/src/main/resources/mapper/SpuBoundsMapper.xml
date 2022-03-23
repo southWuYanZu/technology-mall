@@ -9,7 +9,7 @@
             <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
             <result property="growBounds" column="grow_bounds" jdbcType="DECIMAL"/>
             <result property="buyBounds" column="buy_bounds" jdbcType="DECIMAL"/>
-            <result property="work" column="work" jdbcType="BOOLEAN"/>
+            <result property="work" column="work" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

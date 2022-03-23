@@ -11,7 +11,7 @@
             <result property="sessionId" column="session_id" jdbcType="BIGINT"/>
             <result property="subcribeTime" column="subcribe_time" jdbcType="TIMESTAMP"/>
             <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
-            <result property="noticeType" column="notice_type" jdbcType="BOOLEAN"/>
+            <result property="noticeType" column="notice_type" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

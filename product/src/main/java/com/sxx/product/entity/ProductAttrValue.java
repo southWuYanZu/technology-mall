@@ -54,7 +54,7 @@ public class ProductAttrValue implements Serializable {
      * 快速展示【是否展示在介绍上；0-否 1-是】
      */
     @TableField(value = "quick_show")
-    private Byte quickShow;
+    private int quickShow;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

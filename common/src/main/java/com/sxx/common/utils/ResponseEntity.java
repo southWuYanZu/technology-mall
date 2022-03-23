@@ -65,4 +65,7 @@ public class ResponseEntity extends HashMap<String, Object> implements Serializa
 		super.put(key, value);
 		return this;
 	}
+	public  Integer getCode() {
+		return (Integer) this.get("code");
+	}
 }

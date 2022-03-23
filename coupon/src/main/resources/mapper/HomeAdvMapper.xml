@@ -10,7 +10,7 @@
             <result property="pic" column="pic" jdbcType="VARCHAR"/>
             <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
             <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
-            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="clickCount" column="click_count" jdbcType="INTEGER"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="note" column="note" jdbcType="VARCHAR"/>

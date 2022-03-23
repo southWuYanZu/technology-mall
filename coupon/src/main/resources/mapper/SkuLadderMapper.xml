@@ -10,7 +10,7 @@
             <result property="fullCount" column="full_count" jdbcType="INTEGER"/>
             <result property="discount" column="discount" jdbcType="DECIMAL"/>
             <result property="price" column="price" jdbcType="DECIMAL"/>
-            <result property="addOther" column="add_other" jdbcType="BOOLEAN"/>
+            <result property="addOther" column="add_other" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

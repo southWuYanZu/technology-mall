@@ -9,9 +9,9 @@
             <result property="couponId" column="coupon_id" jdbcType="BIGINT"/>
             <result property="memberId" column="member_id" jdbcType="BIGINT"/>
             <result property="memberNickName" column="member_nick_name" jdbcType="VARCHAR"/>
-            <result property="getType" column="get_type" jdbcType="BOOLEAN"/>
+            <result property="getType" column="get_type" jdbcType="TINYINT"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="useType" column="use_type" jdbcType="BOOLEAN"/>
+            <result property="useType" column="use_type" jdbcType="TINYINT"/>
             <result property="useTime" column="use_time" jdbcType="TIMESTAMP"/>
             <result property="orderId" column="order_id" jdbcType="BIGINT"/>
             <result property="orderSn" column="order_sn" jdbcType="BIGINT"/>

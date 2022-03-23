@@ -6,7 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.sxx.coupon.entity.Coupon">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="couponType" column="coupon_type" jdbcType="BOOLEAN"/>
+            <result property="couponType" column="coupon_type" jdbcType="TINYINT"/>
             <result property="couponImg" column="coupon_img" jdbcType="VARCHAR"/>
             <result property="couponName" column="coupon_name" jdbcType="VARCHAR"/>
             <result property="num" column="num" jdbcType="INTEGER"/>
@@ -15,7 +15,7 @@
             <result property="minPoint" column="min_point" jdbcType="DECIMAL"/>
             <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
             <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
-            <result property="useType" column="use_type" jdbcType="BOOLEAN"/>
+            <result property="useType" column="use_type" jdbcType="TINYINT"/>
             <result property="note" column="note" jdbcType="VARCHAR"/>
             <result property="publishCount" column="publish_count" jdbcType="INTEGER"/>
             <result property="useCount" column="use_count" jdbcType="INTEGER"/>
@@ -23,8 +23,8 @@
             <result property="enableStartTime" column="enable_start_time" jdbcType="TIMESTAMP"/>
             <result property="enableEndTime" column="enable_end_time" jdbcType="TIMESTAMP"/>
             <result property="code" column="code" jdbcType="VARCHAR"/>
-            <result property="memberLevel" column="member_level" jdbcType="BOOLEAN"/>
-            <result property="publish" column="publish" jdbcType="BOOLEAN"/>
+            <result property="memberLevel" column="member_level" jdbcType="TINYINT"/>
+            <result property="publish" column="publish" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

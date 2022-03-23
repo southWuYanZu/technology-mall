@@ -10,6 +10,7 @@ import lombok.Data;
 public class Images {
 
     private String imgUrl;
-    private Byte defaultImg;
+
+    private Integer defaultImg;
 
 }

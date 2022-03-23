@@ -10,7 +10,7 @@
             <result property="memberLevelId" column="member_level_id" jdbcType="BIGINT"/>
             <result property="memberLevelName" column="member_level_name" jdbcType="VARCHAR"/>
             <result property="memberPrice" column="member_price" jdbcType="DECIMAL"/>
-            <result property="addOther" column="add_other" jdbcType="BOOLEAN"/>
+            <result property="addOther" column="add_other" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

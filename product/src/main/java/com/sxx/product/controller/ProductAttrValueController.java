@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * spu属性值
  *
-
  */
 @RestController
 @RequestMapping("product/productattrvalue")

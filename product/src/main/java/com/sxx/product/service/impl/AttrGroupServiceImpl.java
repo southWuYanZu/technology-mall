@@ -114,7 +114,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
         List<AttrGroup> attrGroups = this.list(new QueryWrapper<AttrGroup>().eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId));
         List<Long> groupIds = attrGroups.stream().map(AttrGroup::getAttrGroupId).collect(Collectors.toList());
         if (ObjectUtils.isEmpty(groupIds)) {
-            throw new SqlException("当前品类信息异,请检查订单关联关系是否正常!");
+            throw new SqlException("当前品类信息异常,请检查订单关联关系是否正常!");
         }
 
         List<AttrGroupFindAttrVo> attrVos = attrGroups.stream().map(attrGroup -> {

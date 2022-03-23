@@ -30,9 +30,9 @@ public class SpuInfoController {
      * @param spuSaveVo 商品详情
      * @return 新增状态
      */
-    @Transactional
     @PostMapping("save")
     @ApiOperation("新增商品")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity save(@RequestBody SpuSaveVo spuSaveVo) {
         return spuInfoService.saveSpuInfo(spuSaveVo);
     }
