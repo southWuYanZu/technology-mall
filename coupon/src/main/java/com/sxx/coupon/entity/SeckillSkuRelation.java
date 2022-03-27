@@ -17,42 +17,49 @@ public class SeckillSkuRelation implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 活动id
      */
+    @TableField(value = "promotion_id")
     private Long promotionId;
 
     /**
      * 活动场次id
      */
+    @TableField(value = "promotion_session_id")
     private Long promotionSessionId;
 
     /**
      * 商品id
      */
+    @TableField(value = "sku_id")
     private Long skuId;
 
     /**
      * 秒杀价格
      */
+    @TableField(value = "seckill_price")
     private Integer seckillPrice;
 
     /**
      * 秒杀总量
      */
+    @TableField(value = "seckill_count")
     private Integer seckillCount;
 
     /**
      * 每人限购数量
      */
+    @TableField(value = "seckill_limit")
     private Integer seckillLimit;
 
     /**
      * 排序
      */
+    @TableField(value = "seckill_sort")
     private Integer seckillSort;
 
     @TableField(exist = false)

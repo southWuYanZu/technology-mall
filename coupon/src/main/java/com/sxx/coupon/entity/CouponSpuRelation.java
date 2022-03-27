@@ -17,22 +17,25 @@ public class CouponSpuRelation implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 优惠券id
      */
+    @TableField(value = "coupon_id")
     private Long couponId;
 
     /**
      * spu_id
      */
+    @TableField(value = "spu_id")
     private Long spuId;
 
     /**
      * spu_name
      */
+    @TableField(value = "spu_name")
     private String spuName;
 
     @TableField(exist = false)

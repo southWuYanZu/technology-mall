@@ -11,7 +11,7 @@ import java.util.Map;
 * 针对表【sms_sku_full_reduction(商品满减信息)】的数据库操作Service
 *
 * @author Mr.shen
-* @since 2022-03-23 21:03:52
+* @since 2022-03-23 23:37:02
 */
 public interface SkuFullReductionService extends IService<SkuFullReduction> {
 

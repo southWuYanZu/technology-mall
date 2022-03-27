@@ -6,10 +6,9 @@ import com.sxx.product.vo.SpuSaveVo;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 /**
@@ -23,6 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpuInfoController {
 
     private final SpuInfoService spuInfoService;
+    /**
+     * 查询(spu信息)列表
+     *
+     * @param params 分页条件
+     * @return 分页集
+     */
+    @GetMapping("list")
+    @ApiOperation("(spu信息)列表")
+    public ResponseEntity list(@RequestParam Map<String, Object> params) {
+        return spuInfoService.queryPage(params);
+    }
 
     /**
      * 新增商品信息

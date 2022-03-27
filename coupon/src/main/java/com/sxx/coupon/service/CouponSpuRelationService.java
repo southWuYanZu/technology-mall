@@ -1,6 +1,7 @@
 package com.sxx.coupon.service;
 
 import com.sxx.coupon.entity.CouponSpuRelation;
+import com.sxx.common.utils.ResponseEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
 * 针对表【sms_coupon_spu_relation(优惠券与产品关联)】的数据库操作Service
 *
 * @author Mr.shen
-* @since 2022-03-23 21:03:52
+* @since 2022-03-23 23:45:42
 */
 public interface CouponSpuRelationService extends IService<CouponSpuRelation> {
 

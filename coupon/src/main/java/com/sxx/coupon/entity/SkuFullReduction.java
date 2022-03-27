@@ -4,24 +4,21 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.Data;
 
 /**
  * 商品满减信息
- *
- * @author shenxianxin
  * @TableName sms_sku_full_reduction
  */
-@TableName(value = "sms_sku_full_reduction")
+@TableName(value ="sms_sku_full_reduction")
 @Data
 public class SkuFullReduction implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -45,6 +42,7 @@ public class SkuFullReduction implements Serializable {
     /**
      * 是否参与其他优惠
      */
+    @TableField(value = "add_other")
     private Integer addOther;
 
     @TableField(exist = false)

@@ -17,22 +17,25 @@ public class CouponSpuCategoryRelation implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 优惠券id
      */
+    @TableField(value = "coupon_id")
     private Long couponId;
 
     /**
      * 产品分类id
      */
+    @TableField(value = "category_id")
     private Long categoryId;
 
     /**
      * 产品分类名称
      */
+    @TableField(value = "category_name")
     private String categoryName;
 
     @TableField(exist = false)

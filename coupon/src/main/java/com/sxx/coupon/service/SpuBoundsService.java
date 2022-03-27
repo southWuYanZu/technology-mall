@@ -1,8 +1,8 @@
 package com.sxx.coupon.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.sxx.common.utils.ResponseEntity;
 import com.sxx.coupon.entity.SpuBounds;
+import com.sxx.common.utils.ResponseEntity;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 * 针对表【sms_spu_bounds(商品spu积分设置)】的数据库操作Service
 *
 * @author Mr.shen
-* @since 2022-03-23 21:03:52
+* @since 2022-03-23 23:45:42
 */
 public interface SpuBoundsService extends IService<SpuBounds> {
 

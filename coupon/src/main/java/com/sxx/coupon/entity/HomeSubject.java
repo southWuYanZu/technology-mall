@@ -17,42 +17,49 @@ public class HomeSubject implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 专题名字
      */
+    @TableField(value = "name")
     private String name;
 
     /**
      * 专题标题
      */
+    @TableField(value = "title")
     private String title;
 
     /**
      * 专题副标题
      */
+    @TableField(value = "sub_title")
     private String subTitle;
 
     /**
      * 显示状态
      */
+    @TableField(value = "status")
     private Integer status;
 
     /**
      * 详情连接
      */
+    @TableField(value = "url")
     private String url;
 
     /**
      * 排序
      */
+    @TableField(value = "sort")
     private Integer sort;
 
     /**
      * 专题图片地址
      */
+    @TableField(value = "img")
     private String img;
 
     @TableField(exist = false)

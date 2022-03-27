@@ -1,8 +1,12 @@
 package com.sxx.coupon.controller;
 
+import com.sxx.common.utils.ResponseEntity;
+import com.sxx.coupon.entity.SeckillSkuNotice;
+import com.sxx.coupon.service.SeckillSkuNoticeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import io.swagger.annotations.ApiOperation;1
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +16,7 @@ import java.util.Map;
  * 针对表【sms_seckill_sku_notice(秒杀商品通知订阅)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-23 21:03:52
+ * @since 2022-03-23 23:45:42
  */
 @RestController
 @RequiredArgsConstructor

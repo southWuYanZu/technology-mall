@@ -1,9 +1,11 @@
 package com.sxx.product.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.SpuInfo;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.sxx.product.vo.SpuSaveVo;
+
+import java.util.Map;
 
 /**
  * @author shenxianxin
@@ -12,7 +14,13 @@ import com.sxx.product.vo.SpuSaveVo;
  */
 public interface SpuInfoService extends IService<SpuInfo> {
 
-
+    /**
+     * 查询(优惠券信息)列表
+     *
+     * @param params 分页条件
+     * @return 分页集
+     */
+    ResponseEntity queryPage(Map<String, Object> params);
     /**
      * 新增商品信息
      *

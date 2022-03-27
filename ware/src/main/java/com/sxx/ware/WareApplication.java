@@ -7,12 +7,15 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
+ * 仓库系统启动类
+ *
  * @author shenxianxin
+ * @since 2022/3/27
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.sxx.ware.feign")
 @MapperScan(basePackages = "com.sxx.ware.mapper")
+@EnableFeignClients(basePackages = "com.sxx.ware.feign")
 public class WareApplication {
     public static void main(String[] args) {
         SpringApplication.run(WareApplication.class, args);

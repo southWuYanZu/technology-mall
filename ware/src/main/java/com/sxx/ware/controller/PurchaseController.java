@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(采购信息)")
-@RequestMapping("Purchase")
+@RequestMapping("ware/Purchase")
 public class PurchaseController {
 
     private final PurchaseService purchaseService;

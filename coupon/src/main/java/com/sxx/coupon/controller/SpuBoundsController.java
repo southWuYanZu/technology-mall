@@ -16,7 +16,7 @@ import java.util.Map;
  * 针对表【sms_spu_bounds(商品spu积分设置)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-23 21:03:52
+ * @since 2022-03-23 23:45:42
  */
 @RestController
 @RequiredArgsConstructor
@@ -55,14 +55,14 @@ public class SpuBoundsController {
     /**
      * (商品spu积分设置)批量新增或修改
      *
-     * @param spuBounds 增加或修改集合
+     * @param spuBoundss 增加或修改集合
      * @return 变更状态
      */
     @PostMapping("saveOrUpdate")
     @ApiOperation("(商品spu积分设置)批量新增或修改")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity saveOrUpdate(@RequestBody List<SpuBounds> spuBounds) {
-        boolean flag = spuBoundsService.saveOrUpdateBatch(spuBounds);
+    public ResponseEntity saveOrUpdate(@RequestBody List<SpuBounds> spuBoundss) {
+        boolean flag = spuBoundsService.saveOrUpdateBatch(spuBoundss);
         return flag ? ResponseEntity.ok("(商品spu积分设置)批量变更成功") : ResponseEntity.error("(商品spu积分设置)批量变更失败");
     }
 
@@ -97,14 +97,14 @@ public class SpuBoundsController {
     /**
      * 批量更新(商品spu积分设置)
      *
-     * @param spuBounds (商品spu积分设置)信息
+     * @param spuBoundss (商品spu积分设置)信息
      * @return 批量更新状态
      */
     @PostMapping("updateBatch")
     @ApiOperation("批量更新(商品spu积分设置)")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity updateBatch(@RequestBody List<SpuBounds> spuBounds) {
-        boolean flag = spuBoundsService.updateBatchById(spuBounds);
+    public ResponseEntity updateBatch(@RequestBody List<SpuBounds> spuBoundss) {
+        boolean flag = spuBoundsService.updateBatchById(spuBoundss);
         return flag ? ResponseEntity.ok("批量更新(商品spu积分设置)成功") : ResponseEntity.error("批量更新(商品spu积分设置)失败");
     }
 

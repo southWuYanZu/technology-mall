@@ -1,6 +1,7 @@
 package com.sxx.coupon.service;
 
 import com.sxx.coupon.entity.HomeSubject;
+import com.sxx.common.utils.ResponseEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
 * 针对表【sms_home_subject(首页专题表【jd首页下面很多专题，每个专题链接新的页面，展示专题商品信息】)】的数据库操作Service
 *
 * @author Mr.shen
-* @since 2022-03-23 21:03:52
+* @since 2022-03-23 23:45:42
 */
 public interface HomeSubjectService extends IService<HomeSubject> {
 

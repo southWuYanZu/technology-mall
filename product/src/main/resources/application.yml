@@ -4,6 +4,12 @@ spring:
     username: root
     password: '0810'
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd hh:mm:ss
+    time-zone: GMT+8
 logging:
   level:
     com.sxx: debug
+feign:
+  httpclient:
+    connection-timeout: 10000

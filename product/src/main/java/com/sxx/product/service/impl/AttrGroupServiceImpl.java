@@ -11,7 +11,7 @@ import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.Attr;
 import com.sxx.product.entity.AttrAttrgroupRelation;
 import com.sxx.product.entity.AttrGroup;
-import com.sxx.product.enums.ProductConstantAndEnum;
+import com.sxx.product.enums.ProConsEnums;
 import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.service.AttrGroupService;
 import com.sxx.product.service.AttrService;
@@ -52,10 +52,10 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
         String key = (String) params.get("key");
         QueryWrapper<AttrGroup> wrapper = new QueryWrapper<>();
         if (catId != 0) {
-            wrapper.eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catId);
+            wrapper.eq(ProConsEnums.COLUMN_CATELOG_ID, catId);
         }
         if (!StringUtils.isNullOrEmpty(key)) {
-            wrapper.and(condition -> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_NAME, key).or().likeRight("descript", key));
+            wrapper.and(condition -> condition.eq(ProConsEnums.COLUMN_ATTR_GROUP_NAME, key).or().likeRight("descript", key));
         }
         IPage<AttrGroup> page = this.page(new Query<AttrGroup>().getPage(params), wrapper);
         return ResponseEntity.ok("page", new PageUtils(page));
@@ -67,7 +67,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
             return ResponseEntity.error("商品信息加载失败,商品分组信息不能为空");
         }
         List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
-                .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrgroupId));
+                .eq(ProConsEnums.COLUMN_ATTR_GROUP_ID, attrgroupId));
         List<Long> attrIds = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
         List<Attr> attrs = null;
         if (!ObjectUtils.isEmpty(attrIds)) {
@@ -82,21 +82,21 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
         assert ObjectUtils.isEmpty(attrGroup);
         Long catelogId = attrGroup.getCatelogId();
         List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
-                .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrGroupId));
+                .eq(ProConsEnums.COLUMN_ATTR_GROUP_ID, attrGroupId));
         //已关联,不做展示的属性
         List<Long> attrIdList = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
         //同一分类下排除不做展示后的属性
         List<Long> attrs = attrService.list(new QueryWrapper<Attr>()
-                .eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId)
-                .notIn(ProductConstantAndEnum.COLUMN_ATTR_ID, attrIdList))
+                .eq(ProConsEnums.COLUMN_CATELOG_ID, catelogId)
+                .notIn(ProConsEnums.COLUMN_ATTR_ID, attrIdList))
                 .stream().map(Attr::getAttrId)
                 .collect(Collectors.toList());
         QueryWrapper<Attr> wrapper = new QueryWrapper<Attr>()
-                .eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId)
-                .in(ProductConstantAndEnum.COLUMN_ATTR_ID, attrs);
+                .eq(ProConsEnums.COLUMN_CATELOG_ID, catelogId)
+                .in(ProConsEnums.COLUMN_ATTR_ID, attrs);
         String key = (String) params.get("key");
         if (!StringUtils.isNullOrEmpty(key)) {
-            wrapper.and(condition -> condition.eq(ProductConstantAndEnum.COLUMN_ATTR_ID, key).or().likeRight(ProductConstantAndEnum.COLUMN_ATTR_NAME, key));
+            wrapper.and(condition -> condition.eq(ProConsEnums.COLUMN_ATTR_ID, key).or().likeRight(ProConsEnums.COLUMN_ATTR_NAME, key));
         }
         IPage<Attr> iPage = new Query<Attr>().getPage(params);
         IPage<Attr> page = attrService.page(iPage, wrapper);
@@ -111,7 +111,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
     @Override
     public ResponseEntity getAttrByCatelogId(long catelogId) {
         //根据品类查询当前分组
-        List<AttrGroup> attrGroups = this.list(new QueryWrapper<AttrGroup>().eq(ProductConstantAndEnum.COLUMN_CATELOG_ID, catelogId));
+        List<AttrGroup> attrGroups = this.list(new QueryWrapper<AttrGroup>().eq(ProConsEnums.COLUMN_CATELOG_ID, catelogId));
         List<Long> groupIds = attrGroups.stream().map(AttrGroup::getAttrGroupId).collect(Collectors.toList());
         if (ObjectUtils.isEmpty(groupIds)) {
             throw new SqlException("当前品类信息异常,请检查订单关联关系是否正常!");
@@ -122,7 +122,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
             BeanUtils.copyProperties(attrGroup, groupFindAttrVo);
             //根据分类查询所关联的商品属性信息
             List<AttrAttrgroupRelation> relations = relationService.list(new QueryWrapper<AttrAttrgroupRelation>()
-                    .eq(ProductConstantAndEnum.COLUMN_ATTR_GROUP_ID, attrGroup.getAttrGroupId()));
+                    .eq(ProConsEnums.COLUMN_ATTR_GROUP_ID, attrGroup.getAttrGroupId()));
             if (!ObjectUtils.isEmpty(relations)) {
                 List<Long> attrIds = relations.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
                 if (!ObjectUtils.isEmpty(attrIds)) {

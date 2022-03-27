@@ -17,7 +17,7 @@ import java.util.Map;
  * 针对表【sms_sku_full_reduction(商品满减信息)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-23 21:03:52
+ * @since 2022-03-23 23:37:02
  */
 @RestController
 @RequiredArgsConstructor
@@ -48,7 +48,7 @@ public class SkuFullReductionController {
     @GetMapping("info/{skuFullReductionId}")
     @ApiOperation("(商品满减信息)详情")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity info(@PathVariable Long skuFullReductionId) {
+        public ResponseEntity info(@PathVariable Long skuFullReductionId) {
         SkuFullReduction skuFullReduction = skuFullReductionService.getById(skuFullReductionId);
         return ResponseEntity.ok("data", skuFullReduction);
     }
