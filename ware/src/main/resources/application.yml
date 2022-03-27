@@ -14,5 +14,3 @@ logging:
 feign:
   httpclient:
     connection-timeout: 10000
-mybatis:
-  mapper-locations: classpath:mapper/*.xml

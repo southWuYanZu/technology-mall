@@ -16,12 +16,12 @@ import java.util.Map;
  * 针对表【wms_ware_order_task_detail(库存工作单)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-11 16:05:17
+ * @since 2022-03-27 16:45:54
  */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(库存工作单)")
-@RequestMapping("WareOrderTaskDetail")
+@RequestMapping("wareOrderTaskDetail")
 public class WareOrderTaskDetailController {
 
     private final WareOrderTaskDetailService wareOrderTaskDetailService;

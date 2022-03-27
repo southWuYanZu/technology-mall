@@ -17,27 +17,31 @@ public class WareOrderTaskDetail implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * sku_id
      */
+    @TableField(value = "sku_id")
     private Long skuId;
 
     /**
      * sku_name
      */
+    @TableField(value = "sku_name")
     private String skuName;
 
     /**
      * 购买个数
      */
+    @TableField(value = "sku_num")
     private Integer skuNum;
 
     /**
      * 工作单id
      */
+    @TableField(value = "task_id")
     private Long taskId;
 
     @TableField(exist = false)

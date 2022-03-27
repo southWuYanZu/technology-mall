@@ -16,12 +16,12 @@ import java.util.Map;
  * 针对表【wms_purchase_detail】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-11 16:05:17
+ * @since 2022-03-27 16:45:54
  */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "")
-@RequestMapping("PurchaseDetail")
+@RequestMapping("purchaseDetail")
 public class PurchaseDetailController {
 
     private final PurchaseDetailService purchaseDetailService;

@@ -1,8 +1,8 @@
 package com.sxx.ware.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.sxx.common.utils.ResponseEntity;
 import com.sxx.ware.entity.Purchase;
+import com.sxx.common.utils.ResponseEntity;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
 
@@ -10,12 +10,12 @@ import java.util.Map;
 * 针对表【wms_purchase(采购信息)】的数据库操作Service
 *
 * @author Mr.shen
-* @since 2022-03-11 16:05:17
+* @since 2022-03-27 16:45:54
 */
 public interface PurchaseService extends IService<Purchase> {
 
     /**
-     * 查询wms_purchase(采购信息)列表
+     * 查询(采购信息)列表
      *
      * @param params 分页条件
      * @return 分页集

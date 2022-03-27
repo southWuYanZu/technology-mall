@@ -16,12 +16,12 @@ import java.util.Map;
  * 针对表【wms_ware_info(仓库信息)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-11 16:05:17
+ * @since 2022-03-27 16:45:54
  */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(仓库信息)")
-@RequestMapping("ware/wareInfo")
+@RequestMapping("ware/wareinfo")
 public class WareInfoController {
 
     private final WareInfoService wareInfoService;

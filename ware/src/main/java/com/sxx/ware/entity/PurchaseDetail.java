@@ -18,37 +18,43 @@ public class PurchaseDetail implements Serializable {
     /**
      * 
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 采购单id
      */
+    @TableField(value = "purchase_id")
     private Long purchaseId;
 
     /**
      * 采购商品id
      */
+    @TableField(value = "sku_id")
     private Long skuId;
 
     /**
      * 采购数量
      */
+    @TableField(value = "sku_num")
     private Integer skuNum;
 
     /**
      * 采购金额
      */
+    @TableField(value = "sku_price")
     private BigDecimal skuPrice;
 
     /**
      * 仓库id
      */
+    @TableField(value = "ware_id")
     private Long wareId;
 
     /**
      * 状态[0新建，1已分配，2正在采购，3已完成，4采购失败]
      */
+    @TableField(value = "status")
     private Integer status;
 
     @TableField(exist = false)

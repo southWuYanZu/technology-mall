@@ -16,12 +16,12 @@ import java.util.Map;
  * 针对表【wms_ware_sku(商品库存)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-11 16:05:17
+ * @since 2022-03-27 16:45:54
  */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(商品库存)")
-@RequestMapping("WareSku")
+@RequestMapping("wareSku")
 public class WareSkuController {
 
     private final WareSkuService wareSkuService;

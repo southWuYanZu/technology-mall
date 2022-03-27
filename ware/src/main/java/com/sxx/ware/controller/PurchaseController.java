@@ -16,12 +16,12 @@ import java.util.Map;
  * 针对表【wms_purchase(采购信息)】的数据库操作Controller
  *
  * @author Mr.shen
- * @since 2022-03-11 16:05:17
+ * @since 2022-03-27 16:45:54
  */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(采购信息)")
-@RequestMapping("ware/Purchase")
+@RequestMapping("purchase")
 public class PurchaseController {
 
     private final PurchaseService purchaseService;
@@ -47,7 +47,7 @@ public class PurchaseController {
     @GetMapping("info/{purchaseId}")
     @ApiOperation("(采购信息)详情")
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity info(@PathVariable Long purchaseId) {
+        public ResponseEntity info(@PathVariable Long purchaseId) {
         Purchase purchase = purchaseService.getById(purchaseId);
         return ResponseEntity.ok("data", purchase);
     }

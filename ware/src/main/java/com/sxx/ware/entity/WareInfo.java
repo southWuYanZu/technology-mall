@@ -17,22 +17,25 @@ public class WareInfo implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 仓库名
      */
+    @TableField(value = "name")
     private String name;
 
     /**
      * 仓库地址
      */
+    @TableField(value = "address")
     private String address;
 
     /**
      * 区域编码
      */
+    @TableField(value = "areacode")
     private String areacode;
 
     @TableField(exist = false)
