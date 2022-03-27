@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(商品库存)")
-@RequestMapping("wareSku")
+@RequestMapping("ware/waresku")
 public class WareSkuController {
 
     private final WareSkuService wareSkuService;

@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(库存工作单)")
-@RequestMapping("wareOrderTask")
+@RequestMapping("ware/wareordertask")
 public class WareOrderTaskController {
 
     private final WareOrderTaskService wareOrderTaskService;

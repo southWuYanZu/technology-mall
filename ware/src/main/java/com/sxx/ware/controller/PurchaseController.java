@@ -1,8 +1,11 @@
 package com.sxx.ware.controller;
 
+import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.ware.entity.Purchase;
 import com.sxx.ware.service.PurchaseService;
+import com.sxx.ware.vo.MergeVo;
+import com.sxx.ware.vo.PurchaseDoneVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +24,56 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "(采购信息)")
-@RequestMapping("purchase")
+@RequestMapping("ware/purchase")
 public class PurchaseController {
 
     private final PurchaseService purchaseService;
 
+    /**
+     * 完成采购单
+     * @param doneVo 需完成采购单信息
+     * @return 完成状态
+     */
+    @PostMapping(value = "/done")
+    public ResponseEntity finish(@RequestBody PurchaseDoneVo doneVo) {
+
+        purchaseService.done(doneVo);
+
+        return ResponseEntity.ok();
+    }
+
+    /**
+     * 领取采购单
+     * @param ids 采购单集合
+     * @return 采购单
+     */
+    @PostMapping(value = "/received")
+    public ResponseEntity received(@RequestBody List<Long> ids) {
+
+        purchaseService.received(ids);
+
+        return ResponseEntity.ok();
+    }
+
+    /**
+     * 合并整单
+     * @param mergeVo 合并信息
+     * @return 合并状态
+     */
+    @PostMapping(value = "/merge")
+    public ResponseEntity merge(@RequestBody MergeVo mergeVo) {
+
+        purchaseService.mergePurchase(mergeVo);
+
+        return ResponseEntity.ok();
+    }
+
+    @GetMapping(value = "/unreceive/list")
+    public ResponseEntity unReceiveList(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPageUnReceive(params);
+
+        return ResponseEntity.ok().put("page", page);
+    }
     /**
      * 查询(采购信息)列表
      *

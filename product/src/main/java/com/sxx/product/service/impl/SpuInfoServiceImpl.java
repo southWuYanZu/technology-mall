@@ -3,6 +3,7 @@ package com.sxx.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sxx.common.constant.Cons;
 import com.sxx.common.to.SkuReductionTo;
 import com.sxx.common.to.SpuBoundTo;
 import com.sxx.common.utils.PageUtils;
@@ -69,12 +70,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
             wrapper.eq(ProConsEnums.COLUMN_STATUS,status);
         }
         String brandId = (String) params.get("brandId");
-        if (!StringUtils.isEmpty(brandId) && !ProConsEnums.STR_ZERO.equalsIgnoreCase(brandId)) {
+        if (!StringUtils.isEmpty(brandId) && !Cons.STR_ZERO.equalsIgnoreCase(brandId)) {
             wrapper.eq(ProConsEnums.COLUMN_BRAND_ID,brandId);
         }
 
         String catelogId = (String) params.get("catelogId");
-        if (!StringUtils.isEmpty(catelogId) && !ProConsEnums.STR_ZERO.equalsIgnoreCase(catelogId)) {
+        if (!StringUtils.isEmpty(catelogId) && !Cons.STR_ZERO.equalsIgnoreCase(catelogId)) {
             wrapper.eq(ProConsEnums.COLUMN_CATELOG_ID,catelogId);
         }
         IPage<SpuInfo> page = this.page(query.getPage(params), wrapper);

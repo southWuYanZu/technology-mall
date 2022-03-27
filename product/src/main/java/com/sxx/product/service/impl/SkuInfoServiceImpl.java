@@ -4,6 +4,7 @@ import com.alibaba.cloud.commons.lang.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sxx.common.constant.Cons;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.product.entity.SkuInfo;
@@ -63,20 +64,20 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         QueryWrapper<SkuInfo> queryWrapper = new QueryWrapper<>();
 
         String key = (String) params.get("key");
-        if (!StringUtils.isEmpty(key) && !ProConsEnums.STR_ZERO.equalsIgnoreCase(key)) {
+        if (!StringUtils.isEmpty(key) && !Cons.STR_ZERO.equalsIgnoreCase(key)) {
             queryWrapper.and(wrapper ->
                     wrapper.eq("sku_id", key).or().like("sku_name", key)
             );
         }
 
         String catelogId = (String) params.get("catelogId");
-        if (!StringUtils.isEmpty(catelogId) && !ProConsEnums.STR_ZERO.equalsIgnoreCase(catelogId)) {
+        if (!StringUtils.isEmpty(catelogId) && !Cons.STR_ZERO.equalsIgnoreCase(catelogId)) {
             queryWrapper.eq("catalog_id", catelogId);
         }
 
         String brandId = (String) params.get("brandId");
-        if (!StringUtils.isEmpty(brandId) && !ProConsEnums.STR_ZERO.equalsIgnoreCase(brandId)) {
-            queryWrapper.eq("brand_id", brandId);
+        if (!StringUtils.isEmpty(brandId) && !Cons.STR_ZERO.equalsIgnoreCase(brandId)) {
+            queryWrapper.eq(ProConsEnums.COLUMN_BRAND_ID, brandId);
         }
 
         String min = (String) params.get("min");

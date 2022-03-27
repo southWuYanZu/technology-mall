@@ -1,8 +1,10 @@
 package com.sxx.ware.service.impl;
 
+import com.alibaba.cloud.commons.lang.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sxx.common.constant.Cons;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.common.utils.ResponseEntity;
@@ -29,6 +31,16 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuMapper, WareSku>
     public ResponseEntity queryPage(Map<String, Object> params) {
         Query<WareSku> query = new Query<>();
         QueryWrapper<WareSku> wrapper = new QueryWrapper<>();
+        String skuId = (String) params.get("skuId");
+        if (!StringUtils.isEmpty(skuId) && !Cons.STR_ZERO.equalsIgnoreCase(skuId)) {
+            wrapper.eq("sku_id",skuId);
+        }
+
+        String wareId = (String) params.get("wareId");
+        if (!StringUtils.isEmpty(wareId) && !Cons.STR_ZERO.equalsIgnoreCase(wareId)) {
+            wrapper.eq("ware_id",wareId);
+        }
+
         IPage<WareSku> page = this.page(query.getPage(params), wrapper);
         return ResponseEntity.ok("page",new PageUtils(page));
     }

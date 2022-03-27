@@ -1,5 +1,6 @@
 package com.sxx.ware.service.impl;
 
+import com.alibaba.cloud.commons.lang.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,6 +30,14 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoMapper, WareInfo>
     public ResponseEntity queryPage(Map<String, Object> params) {
         Query<WareInfo> query = new Query<>();
         QueryWrapper<WareInfo> wrapper = new QueryWrapper<>();
+        String key = (String) params.get("key");
+        if (!StringUtils.isEmpty(key)) {
+            wrapper.eq("id",key)
+                    .or().like("name",key)
+                    .or().like("address",key)
+                    .or().like("areacode",key);
+        }
+
         IPage<WareInfo> page = this.page(query.getPage(params), wrapper);
         return ResponseEntity.ok("page",new PageUtils(page));
     }
