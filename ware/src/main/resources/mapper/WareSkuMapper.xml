@@ -5,16 +5,22 @@
 <mapper namespace="com.sxx.ware.mapper.WareSkuMapper">
 
     <resultMap id="BaseResultMap" type="com.sxx.ware.entity.WareSku">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="skuId" column="sku_id" jdbcType="BIGINT"/>
-            <result property="wareId" column="ware_id" jdbcType="BIGINT"/>
-            <result property="stock" column="stock" jdbcType="INTEGER"/>
-            <result property="skuName" column="sku_name" jdbcType="VARCHAR"/>
-            <result property="stockLocked" column="stock_locked" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="skuId" column="sku_id" jdbcType="BIGINT"/>
+        <result property="wareId" column="ware_id" jdbcType="BIGINT"/>
+        <result property="stock" column="stock" jdbcType="INTEGER"/>
+        <result property="skuName" column="sku_name" jdbcType="VARCHAR"/>
+        <result property="stockLocked" column="stock_locked" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,sku_id,ware_id,
         stock,sku_name,stock_locked
     </sql>
+    <update id="updateStockBySkuIdAndWareId">
+        update MALL_WMS.wms_ware_sku
+        set stock = stock + #{stock}
+        where sku_id = #{skuId,jdbcType=NUMERIC}
+          and ware_id = #{wareId,jdbcType=NUMERIC}
+    </update>
 </mapper>

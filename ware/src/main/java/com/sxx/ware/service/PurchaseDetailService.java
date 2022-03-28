@@ -4,6 +4,7 @@ import com.sxx.ware.entity.PurchaseDetail;
 import com.sxx.common.utils.ResponseEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +22,11 @@ public interface PurchaseDetailService extends IService<PurchaseDetail> {
      * @return 分页集
      */
     ResponseEntity queryPage(Map<String, Object> params);
+
+    /**
+     * 获取当前采购单下的所有采购信息
+     * @param id 采购单id
+     * @return 采购详情
+     */
+    List<PurchaseDetail> listDetailByPurchaseId(Long id);
 }

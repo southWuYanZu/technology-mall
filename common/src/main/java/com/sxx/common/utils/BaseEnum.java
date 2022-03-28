@@ -5,6 +5,7 @@ package com.sxx.common.utils;
  * @since 2022/03/09 下午 9:18
  */
 public interface BaseEnum {
+
     /**
      * 获取code
      *

@@ -1,7 +1,9 @@
 package com.sxx.product.controller;
 
 import com.sxx.common.utils.ResponseEntity;
+import com.sxx.product.entity.ProductAttrValue;
 import com.sxx.product.service.AttrService;
+import com.sxx.product.service.ProductAttrValueService;
 import com.sxx.product.vo.AttrVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,6 +28,8 @@ import java.util.Map;
 public class AttrController {
 
     private final AttrService attrService;
+
+    private final ProductAttrValueService productAttrValueService;
 
     /**
      * 查询商品属性列表 [如果attrId 为 0 则判定为全部查询]
@@ -67,6 +72,19 @@ public class AttrController {
         return attrService.getInfoById(attrId);
     }
 
+
+    /**
+     * 根据spuId 获取规格参数
+     *
+     * @param spuId spuId
+     * @return 当前spu的规格参数
+     */
+    @ApiOperation("获取规格参数")
+    @GetMapping("base/listforspu/{spuId}")
+    public ResponseEntity baseAttrListForSpu(@PathVariable String spuId) {
+        return productAttrValueService.baseAttrListForSpu(spuId);
+    }
+
     /**
      * 属性更新
      *
@@ -79,6 +97,21 @@ public class AttrController {
     public ResponseEntity update(@RequestBody AttrVo attrVo) {
         boolean flag = attrService.updateDetail(attrVo);
         return flag ? ResponseEntity.ok("属性修改成功") : ResponseEntity.error("属性修改失败");
+    }
+
+    /**
+     * 更新规格属性信息
+     *
+     * @param spuId    spuId
+     * @param entities 更新规格属性集
+     * @return 更新状态
+     */
+    @PostMapping("/update/{spuId}")
+    public ResponseEntity updateSpuAttr(@PathVariable("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValue> entities) {
+
+        return productAttrValueService.updateSpuAttr(spuId, entities);
+
     }
 
     /**

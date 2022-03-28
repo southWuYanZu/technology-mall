@@ -62,9 +62,7 @@ public class PurchaseController {
      */
     @PostMapping(value = "/merge")
     public ResponseEntity merge(@RequestBody MergeVo mergeVo) {
-
         purchaseService.mergePurchase(mergeVo);
-
         return ResponseEntity.ok();
     }
 

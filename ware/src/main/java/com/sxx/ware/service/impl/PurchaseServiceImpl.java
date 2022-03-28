@@ -3,6 +3,7 @@ package com.sxx.ware.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sxx.common.constant.WareConstant;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
 import com.sxx.common.utils.ResponseEntity;
@@ -11,12 +12,14 @@ import com.sxx.ware.entity.PurchaseDetail;
 import com.sxx.ware.mapper.PurchaseMapper;
 import com.sxx.ware.service.PurchaseDetailService;
 import com.sxx.ware.service.PurchaseService;
+import com.sxx.ware.service.WareSkuService;
 import com.sxx.ware.vo.MergeVo;
 import com.sxx.ware.vo.PurchaseDoneVo;
 import com.sxx.ware.vo.PurchaseItemDoneVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,7 +35,10 @@ import java.util.stream.Collectors;
 public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
         implements PurchaseService {
 
+    private final WareSkuService wareSkuService;
+
     private final PurchaseDetailService purchaseDetailService;
+
     @Override
     public ResponseEntity queryPage(Map<String, Object> params) {
         Query<Purchase> query = new Query<>();
@@ -113,22 +119,25 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
     public void received(List<Long> ids) {
 
         //1、确认当前采购单是新建或者是已分配状态
-        List<Purchase> collect = ids.stream().map(id -> {
-            return this.getById(id);
-        }).filter(item -> {
-            return item.getStatus() == WareConstant.PurchaseStatusEnum.CREATED.getCode() ||
-                    item.getStatus() == WareConstant.PurchaseStatusEnum.ASSIGNED.getCode();
-        }).peek(item -> {
-            //改变完状态的采购单
-            item.setStatus(WareConstant.PurchaseStatusEnum.RECEIVE.getCode());
-            item.setUpdateTime(new Date());
-        }).collect(Collectors.toList());
+        List<Purchase> collect = null;
+        if (!ObjectUtils.isEmpty(ids)) {
+            collect = ids.stream().map(this::getById
+            ).filter(item ->
+                    item.getStatus() == WareConstant.PurchaseStatusEnum.CREATED.getCode() ||
+                            item.getStatus() == WareConstant.PurchaseStatusEnum.ASSIGNED.getCode()
+            ).peek(item -> {
+                //改变完状态的采购单
+                item.setStatus(WareConstant.PurchaseStatusEnum.RECEIVE.getCode());
+                item.setUpdateTime(new Date());
+            }).collect(Collectors.toList());
+        }
 
         //2、改变采购单的状态
         this.updateBatchById(collect);
 
         //3、改变采购项的状态
-        collect.forEach((item) -> {
+        assert collect != null;
+        collect.forEach(item -> {
             List<PurchaseDetail> list = purchaseDetailService.listDetailByPurchaseId(item.getId());
             List<PurchaseDetail> detailEntities = list.stream().map(entity -> {
 
@@ -162,7 +171,6 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase>
                 purchaseDetailEntity.setStatus(WareConstant.PurchaseDetailStatusEnum.FINISH.getCode());
                 //3、将成功采购的进行入库
                 //查出当前采购项的详细信息
-                //PurchaseDetailEntity entity = purchaseDetailService.getById(item.getItemId());
                 PurchaseDetail entity = purchaseDetailService.getById(item.getItemId());
                 wareSkuService.addStock(entity.getSkuId(), entity.getWareId(), entity.getSkuNum());
 

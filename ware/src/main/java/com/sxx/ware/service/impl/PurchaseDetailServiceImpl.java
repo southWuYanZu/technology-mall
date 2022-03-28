@@ -14,6 +14,7 @@ import com.sxx.ware.service.PurchaseDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,8 +50,12 @@ public class PurchaseDetailServiceImpl extends ServiceImpl<PurchaseDetailMapper,
         IPage<PurchaseDetail> page = this.page(query.getPage(params), wrapper);
         return ResponseEntity.ok("page",new PageUtils(page));
     }
+
+    @Override
+    public List<PurchaseDetail> listDetailByPurchaseId(Long id) {
+
+        return this.list(new QueryWrapper<PurchaseDetail>().eq("purchase_id", id));
+
+    }
+
 }
-
-
-
-
