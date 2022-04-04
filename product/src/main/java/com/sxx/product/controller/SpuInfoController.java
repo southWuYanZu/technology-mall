@@ -22,6 +22,7 @@ import java.util.Map;
 public class SpuInfoController {
 
     private final SpuInfoService spuInfoService;
+
     /**
      * 查询(spu信息)列表
      *
@@ -45,5 +46,17 @@ public class SpuInfoController {
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity save(@RequestBody SpuSaveVo spuSaveVo) {
         return spuInfoService.saveSpuInfo(spuSaveVo);
+    }
+
+    /**
+     * 商品上架功能
+     *
+     * @param spuId spuId
+     * @return 上架状态
+     */
+    @PostMapping("{spuId}/up")
+    public ResponseEntity spuUp(@PathVariable("spuId") Long spuId) {
+        spuInfoService.up(spuId);
+        return ResponseEntity.ok();
     }
 }

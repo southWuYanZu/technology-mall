@@ -5,6 +5,7 @@ import com.sxx.product.entity.Attr;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sxx.product.vo.AttrVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,4 +56,12 @@ public interface AttrService extends IService<Attr> {
      * @return 是否删除成功
      */
     boolean deleteByIds(Long[] attrIds);
+
+    /**
+     * 在指定的所有属性集合里面，挑出检索属性
+     *
+     * @param attrIds 属性ID
+     * @return 符合条件属性
+     */
+    List<Long> selectSearchAttrs(List<Long> attrIds);
 }

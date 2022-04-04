@@ -21,6 +21,7 @@ public interface SpuInfoService extends IService<SpuInfo> {
      * @return 分页集
      */
     ResponseEntity queryPage(Map<String, Object> params);
+
     /**
      * 新增商品信息
      *
@@ -28,4 +29,11 @@ public interface SpuInfoService extends IService<SpuInfo> {
      * @return 新增状态
      */
     ResponseEntity saveSpuInfo(SpuSaveVo spuSaveVo);
+
+    /**
+     * 商品上架
+     *
+     * @param spuId 商品spuId
+     */
+    void up(Long spuId);
 }

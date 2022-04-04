@@ -12,11 +12,14 @@ import com.sxx.ware.entity.WareSku;
 import com.sxx.ware.feign.ProductFeignClient;
 import com.sxx.ware.mapper.WareSkuMapper;
 import com.sxx.ware.service.WareSkuService;
+import com.sxx.ware.vo.SkuHasStockVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 针对表【wms_ware_sku(商品库存)】的数据库操作Service实现
@@ -74,6 +77,17 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuMapper, WareSku>
             this.baseMapper.insert(wareSku);
         }
 
+    }
+
+    @Override
+    public List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds) {
+        return skuIds.stream().map(item -> {
+            Long count = this.baseMapper.getSkuStock(item);
+            SkuHasStockVo skuHasStockVo = new SkuHasStockVo();
+            skuHasStockVo.setSkuId(item);
+            skuHasStockVo.setHasStock(count != null && count > 0);
+            return skuHasStockVo;
+        }).collect(Collectors.toList());
     }
 }
 

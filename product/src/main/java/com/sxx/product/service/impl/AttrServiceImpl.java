@@ -171,6 +171,13 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
         attrGroupMapper.deleteBatchByCatelogIds(cateIds);
         return state;
     }
+
+    @Override
+    public List<Long> selectSearchAttrs(List<Long> attrIds) {
+        QueryWrapper<Attr> wrapper = new QueryWrapper<>();
+        wrapper.in("id",attrIds).eq("search_type",1);
+        return this.baseMapper.selectList(wrapper).stream().map(Attr::getAttrId).collect(Collectors.toList());
+    }
 }
 
 

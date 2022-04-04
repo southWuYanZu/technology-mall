@@ -38,6 +38,13 @@ public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueMap
         this.saveBatch(collect);
         return ResponseEntity.ok();
     }
+
+    @Override
+    public List<ProductAttrValue> baseAttrListForSpu(Long spuId) {
+        return this.baseMapper.selectList(
+                new QueryWrapper<ProductAttrValue>().eq("spu_id", spuId));
+    }
+
 }
 
 

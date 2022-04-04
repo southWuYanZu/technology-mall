@@ -3,6 +3,7 @@ package com.sxx.ware.controller;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.ware.entity.WareSku;
 import com.sxx.ware.service.WareSkuService;
+import com.sxx.ware.vo.SkuHasStockVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,7 @@ public class WareSkuController {
     @GetMapping("info/{wareSkuId}")
     @ApiOperation("(商品库存)详情")
     @Transactional(rollbackFor = Exception.class)
-        public ResponseEntity info(@PathVariable Long wareSkuId) {
+    public ResponseEntity info(@PathVariable Long wareSkuId) {
         WareSku wareSku = wareSkuService.getById(wareSkuId);
         return ResponseEntity.ok("data", wareSku);
     }
@@ -78,6 +79,21 @@ public class WareSkuController {
     public ResponseEntity save(@RequestBody WareSku wareSku) {
         boolean flag = wareSkuService.saveOrUpdate(wareSku);
         return flag ? ResponseEntity.ok("(商品库存)新增成功") : ResponseEntity.error("(商品库存)新增失败");
+    }
+
+    /**
+     * 查询sku是否有库存
+     *
+     * @param skuIds skuIds
+     * @return 拥有库存的sku集合
+     */
+    @PostMapping(value = "/hasStock")
+    public ResponseEntity getSkuHasStock(@RequestBody List<Long> skuIds) {
+
+        List<SkuHasStockVo> vos = wareSkuService.getSkuHasStock(skuIds);
+
+        return ResponseEntity.ok().setData(vos);
+
     }
 
     /**

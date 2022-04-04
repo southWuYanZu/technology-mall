@@ -3,7 +3,9 @@ package com.sxx.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sxx.common.utils.ResponseEntity;
 import com.sxx.ware.entity.WareSku;
+import com.sxx.ware.vo.SkuHasStockVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,20 +33,13 @@ public interface WareSkuService extends IService<WareSku> {
      */
     void addStock(Long skuId, Long wareId, Integer skuNum);
 
-/*    *//**
-     * 判断是否有库存
+
+    /**
+     * 查询sku是否有库存
      *
      * @param skuIds skuIds
-     * @return 判断是否有库存
-     *//*
+     * @return 拥有库存的sku集合
+     */
     List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds);
-
-    *//**
-     * 锁定库存
-     *
-     * @param vo WareSkuLockVo
-     * @return 锁定库存
-     *//*
-    boolean orderLockStock(WareSkuLockVo vo);*/
 
 }
