@@ -175,7 +175,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
     @Override
     public List<Long> selectSearchAttrs(List<Long> attrIds) {
         QueryWrapper<Attr> wrapper = new QueryWrapper<>();
-        wrapper.in("id",attrIds).eq("search_type",1);
+        wrapper.in("attr_id",attrIds).eq("search_type",1);
         return this.baseMapper.selectList(wrapper).stream().map(Attr::getAttrId).collect(Collectors.toList());
     }
 }

@@ -2,8 +2,10 @@ package com.sxx.product.service;
 
 import com.sxx.product.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sxx.product.vo.Catelog2Vo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author shenxianxin
@@ -21,6 +23,7 @@ public interface CategoryService extends IService<Category> {
 
     /**
      * 根据ids删除菜单
+     *
      * @param ids id 集合
      */
     void deleteMenusByIds(Long[] ids);
@@ -32,4 +35,18 @@ public interface CategoryService extends IService<Category> {
      * @return 回写分组详细信息
      */
     Long[] findCategoryPathById(Long categoryId);
+
+    /**
+     * 获取一级品类
+     *
+     * @return 一级品类集合
+     */
+    List<Category> getLevel1Categorys();
+
+    /**
+     * 创建品类json数据
+     *
+     * @return 品类数据
+     */
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 }

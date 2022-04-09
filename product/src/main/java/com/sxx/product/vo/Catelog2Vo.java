@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * @author Mr.shen
- * @since 2022/03/12 上午 11:23
- */
+ * @author shenxianxin
+ * <p>
+ * 二级分类id
+ **/
 
 @Data
 @AllArgsConstructor
