@@ -18,7 +18,7 @@ public interface SpuInfoMapper extends BaseMapper<SpuInfo> {
      * @param spuId id
      * @param code  状态码
      */
-    void updateSpuStatus(@Param("spuId") Long spuId, int code);
+    void updateSpuStatus(@Param("spuId") Long spuId, @Param("code") int code);
 }
 
 

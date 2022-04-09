@@ -27,6 +27,7 @@ import com.sxx.product.vo.SpuSaveVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -96,18 +97,21 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
 
     @Override
     public ResponseEntity saveSpuInfo(SpuSaveVo spuSaveVo) {
+
         //保存spuInfo信息
         SpuInfo spuInfo = new SpuInfo();
         BeanUtils.copyProperties(spuSaveVo, spuInfo);
         spuInfo.setCreateTime(new Date());
         spuInfo.setUpdateTime(new Date());
         this.save(spuInfo);
+
         //保存spu描述图片信息
         List<String> description = spuSaveVo.getDecript();
         SpuInfoDesc desc = new SpuInfoDesc();
         desc.setSpuId(spuInfo.getId());
         desc.setDecript(String.join(",", description));
         descService.save(desc);
+
         //保存spu图片集
         List<String> spuImages = spuSaveVo.getImages();
         List<SpuImages> spuImagesList = spuImages.stream().map(image -> {
@@ -117,8 +121,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
             return spuImg;
         }).collect(Collectors.toList());
         spuImagesService.saveBatch(spuImagesList);
+
         //保存sku的图片集 和 skuInfo信息 和sku得销售信息
         saveSkuInfo(spuSaveVo, spuInfo);
+
         //保存spu信息
         List<BaseAttrs> baseAttrs = spuSaveVo.getBaseAttrs();
         List<ProductAttrValue> collect = baseAttrs.stream().map(attr -> {
@@ -133,6 +139,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
             return valueEntity;
         }).collect(Collectors.toList());
         productAttrValueService.saveBatch(collect);
+
         //TODO
         Bounds bounds = spuSaveVo.getBounds();
         SpuBoundTo spuBoundTo = new SpuBoundTo();
@@ -147,6 +154,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void up(Long spuId) {
 
         //1、查出当前spuId对应的所有sku信息,品牌的名字
@@ -171,6 +179,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
         List<Long> skuIdList = skuInfoEntities.stream()
                 .map(SkuInfo::getSkuId)
                 .collect(Collectors.toList());
+
         //TODO 1、发送远程调用，库存系统查询是否有库存
         Map<Long, Boolean> stockMap = null;
         try {

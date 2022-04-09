@@ -46,6 +46,11 @@ public class ResponseEntity extends HashMap<String, Object> implements Serializa
         return r;
     }
 
+    public ResponseEntity ok(Object data) {
+        put("data", data);
+        return this;
+    }
+
     /**
      * 利用fastjson进行反序列化
      */
