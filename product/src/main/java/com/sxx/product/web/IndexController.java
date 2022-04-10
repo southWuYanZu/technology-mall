@@ -5,8 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.sxx.product.entity.Category;
 import com.sxx.product.service.CategoryService;
 import com.sxx.product.vo.Catelog2Vo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +21,12 @@ import java.util.Map;
  * @author admin
  */
 @Controller
+@RequiredArgsConstructor
 public class IndexController {
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @GetMapping(value = {"/", "index.html"})
     private String indexPage(Model model) {
@@ -41,12 +39,9 @@ public class IndexController {
     }
 
 
-    /**
-     * index/json/catalog.json
-     */
-    @GetMapping(value = "/index/catalog.json")
+    @GetMapping(value = "/index/json/catalog.json")
     @ResponseBody
-    @Cacheable(value = "catalogJson",key = "#root.method.name")
+//    @Cacheable(value = "catalogJson",key = "#root.method.name")
     public Map<String, List<Catelog2Vo>> getCatalogJson() {
         String catalogJson = redisTemplate.opsForValue().get("catalogJson");
         if (StringUtils.isEmpty(catalogJson)) {

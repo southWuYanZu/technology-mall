@@ -3,11 +3,10 @@ package com.sxx.elasticsearch.controller;
 
 import com.sxx.elasticsearch.service.MallSearchService;
 import com.sxx.elasticsearch.vo.SearchParam;
-import com.sxx.elasticsearch.vo.SearchResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2022/4/3 21:43:06
  */
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class SearchController {
 
@@ -31,12 +30,12 @@ public class SearchController {
     @GetMapping(value = "/list.html")
     public String listPage(SearchParam param, Model model, HttpServletRequest request) {
 
-        param.set_queryString(request.getQueryString());
+//        param.set_queryString(request.getQueryString());
 
         //1、根据传递来的页面的查询参数，去es中检索商品
-        SearchResult result = mallSearchService.search(param);
+/*        SearchResult result = mallSearchService.search(param);
 
-        model.addAttribute("result", result);
+        model.addAttribute("result", result);*/
 
         return "list";
     }
