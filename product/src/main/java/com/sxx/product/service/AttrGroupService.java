@@ -4,6 +4,7 @@ import com.sxx.common.utils.ResponseEntity;
 import com.sxx.product.entity.AttrAttrgroupRelation;
 import com.sxx.product.entity.AttrGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sxx.product.vo.SpuItemAttrGroupVo;
 
 import java.util.List;
 import java.util.Map;
@@ -57,4 +58,6 @@ public interface AttrGroupService extends IService<AttrGroup> {
      * @return 商品属性结果集
      */
     ResponseEntity getAttrByCatelogId(long catelogId);
+
+    List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId);
 }

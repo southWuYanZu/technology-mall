@@ -192,8 +192,8 @@ public class MallSearchServiceImpl implements MallSearchService {
         result.setTotal(total);
 
         //5、2分页信息-总页码-计算
-        int totalPages = (int) total % EsConstant.PRODUCT_PAGESIZE == 0 ?
-                (int) total / EsConstant.PRODUCT_PAGESIZE : ((int) total / EsConstant.PRODUCT_PAGESIZE + 1);
+        int totalPages = (int) total % EsConstant.PRODUCT_PAGE_SIZE == 0 ?
+                (int) total / EsConstant.PRODUCT_PAGE_SIZE : ((int) total / EsConstant.PRODUCT_PAGE_SIZE + 1);
         result.setTotalPages(totalPages);
 
         List<Integer> pageNavs = new ArrayList<>();
@@ -229,14 +229,13 @@ public class MallSearchServiceImpl implements MallSearchService {
                     e.printStackTrace();
                 }
                 String replace = param.get_queryString().replace("&attrs=" + attr, "");
-                navVo.setLink("http://search.gulimall.com/list.html?" + replace);
+                navVo.setLink("http://search.mall.com/list.html?" + replace);
 
                 return navVo;
             }).collect(Collectors.toList());
 
             result.setNavs(collect);
         }
-
 
         return result;
     }
@@ -336,15 +335,15 @@ public class MallSearchServiceImpl implements MallSearchService {
         }
 
         //分页
-        searchSourceBuilder.from((param.getPageNum() - 1) * EsConstant.PRODUCT_PAGESIZE);
-        searchSourceBuilder.size(EsConstant.PRODUCT_PAGESIZE);
+        searchSourceBuilder.from((param.getPageNum() - 1) * EsConstant.PRODUCT_PAGE_SIZE);
+        searchSourceBuilder.size(EsConstant.PRODUCT_PAGE_SIZE);
 
         //高亮
         if (!StringUtils.isEmpty(param.getKeyword())) {
 
             HighlightBuilder highlightBuilder = new HighlightBuilder();
             highlightBuilder.field("skuTitle");
-            highlightBuilder.preTags("<b style='color:red'>");
+            highlightBuilder.preTags("<b color='red'>");
             highlightBuilder.postTags("</b>");
 
             searchSourceBuilder.highlighter(highlightBuilder);

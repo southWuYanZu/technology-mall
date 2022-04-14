@@ -2,6 +2,10 @@ package com.sxx.product.mapper;
 
 import com.sxx.product.entity.SkuSaleAttrValue;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sxx.product.vo.SkuItemSaleAttrVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author shenxianxin
@@ -11,6 +15,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface SkuSaleAttrValueMapper extends BaseMapper<SkuSaleAttrValue> {
 
+    List<SkuItemSaleAttrVo> getSaleAttrBySpuId(@Param("spuId") Long spuId);
+
+    List<String> getSkuSaleAttrValuesAsStringList(@Param("skuId") Long skuId);
 }
 
 

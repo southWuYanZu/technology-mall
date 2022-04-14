@@ -23,8 +23,8 @@ public class ItemController {
 
     /**
      * 展示当前sku的详情
-     * @param skuId
-     * @return
+     * @param skuId id
+     * @return info
      */
     @GetMapping("/{skuId}.html")
     public String skuItem(@PathVariable("skuId") Long skuId, Model model) throws ExecutionException, InterruptedException {

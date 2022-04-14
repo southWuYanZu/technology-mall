@@ -64,4 +64,6 @@ public interface AttrService extends IService<Attr> {
      * @return 符合条件属性
      */
     List<Long> selectSearchAttrs(List<Long> attrIds);
+
+    List<Attr> getRelationAttr(Long attrGroupId);
 }

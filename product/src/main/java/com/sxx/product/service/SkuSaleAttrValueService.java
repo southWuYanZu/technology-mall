@@ -1,7 +1,12 @@
 package com.sxx.product.service;
 
-import com.sxx.product.entity.SkuSaleAttrValue;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sxx.common.utils.PageUtils;
+import com.sxx.product.entity.SkuSaleAttrValue;
+import com.sxx.product.vo.SkuItemSaleAttrVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
 * @author shenxianxin
@@ -10,4 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValue> {
 
+    PageUtils queryPage(Map<String, Object> params);
+
+    List<SkuItemSaleAttrVo> getSaleAttrBySpuId(Long spuId);
+
+    List<String> getSkuSaleAttrValuesAsStringList(Long skuId);
 }

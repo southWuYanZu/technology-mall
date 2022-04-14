@@ -1,10 +1,13 @@
 package com.sxx.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxx.product.entity.SkuImages;
-import com.sxx.product.service.SkuImagesService;
 import com.sxx.product.mapper.SkuImagesMapper;
+import com.sxx.product.service.SkuImagesService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author shenxianxin
@@ -14,6 +17,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SkuImagesServiceImpl extends ServiceImpl<SkuImagesMapper, SkuImages>
     implements SkuImagesService{
+
+    @Override
+    public List<SkuImages> getImagesBySkuId(Long skuId) {
+
+        return this.baseMapper.selectList(new QueryWrapper<SkuImages>().eq("sku_id", skuId));
+
+    }
 
 }
 

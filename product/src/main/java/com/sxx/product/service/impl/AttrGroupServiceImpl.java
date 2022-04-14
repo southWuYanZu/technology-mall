@@ -16,6 +16,8 @@ import com.sxx.product.mapper.AttrGroupMapper;
 import com.sxx.product.service.AttrGroupService;
 import com.sxx.product.service.AttrService;
 import com.sxx.product.vo.AttrGroupFindAttrVo;
+import com.sxx.product.vo.AttrGroupWithAttrsVo;
+import com.sxx.product.vo.SpuItemAttrGroupVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -135,6 +137,41 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
             return groupFindAttrVo;
         }).collect(Collectors.toList());
         return ResponseEntity.ok("data", attrVos);
+    }
+
+
+    /**
+     * 根据分类id查询出所有的分组以及这些组里面的属性
+     * @param catelogId
+     * @return
+     */
+    @Override
+    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId) {
+
+        //1、查询分组信息
+        List<AttrGroup> attrGroupEntities = this.list(new QueryWrapper<AttrGroup>().eq("catelog_id", catelogId));
+
+        //2、查询所有属性
+        List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
+            AttrGroupWithAttrsVo attrGroupWithAttrsVo = new AttrGroupWithAttrsVo();
+            BeanUtils.copyProperties(group,attrGroupWithAttrsVo);
+
+            List<Attr> attrs = attrService.getRelationAttr(attrGroupWithAttrsVo.getAttrGroupId());
+            attrGroupWithAttrsVo.setAttrs(attrs);
+
+            return attrGroupWithAttrsVo;
+        }).collect(Collectors.toList());
+
+        return collect;
+    }
+
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
+
+        //1、查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
+        List<SpuItemAttrGroupVo> vos = baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
+
+        return vos;
     }
 }
 

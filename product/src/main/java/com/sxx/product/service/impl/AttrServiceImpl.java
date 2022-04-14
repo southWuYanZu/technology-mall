@@ -177,7 +177,31 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, Attr>
         QueryWrapper<Attr> wrapper = new QueryWrapper<>();
         wrapper.in("attr_id",attrIds).eq("search_type",1);
         return this.baseMapper.selectList(wrapper).stream().map(Attr::getAttrId).collect(Collectors.toList());
+    }    /**
+     * 根据分组id找到关联的所有属性
+     * @param attrgroupId
+     * @return
+     */
+    @Override
+    public List<Attr> getRelationAttr(Long attrgroupId) {
+
+        List<AttrAttrgroupRelation> entities = relationMapper.selectList
+                (new QueryWrapper<AttrAttrgroupRelation>().eq("attr_group_id", attrgroupId));
+
+        List<Long> attrIds = entities.stream().map(AttrAttrgroupRelation::getAttrId).collect(Collectors.toList());
+
+        //根据attrIds查找所有的属性信息
+        //Collection<AttrEntity> attrEntities = this.listByIds(attrIds);
+
+        //如果attrIds为空就直接返回一个null值出去
+        if (attrIds == null || attrIds.size() == 0) {
+            return null;
+        }
+        List<Attr> attrEntityList = this.baseMapper.selectBatchIds(attrIds);
+
+        return attrEntityList;
     }
+
 }
 
 
