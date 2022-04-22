@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author shenxianxin
  **/
 
-@FeignClient(value = "gulimall-seckill")
+@FeignClient(value = "mall-seckill")
 public interface SeckillFeignService {
 
     /**

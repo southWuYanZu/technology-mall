@@ -22,3 +22,8 @@ feign:
     connection-timeout: 10000
 server:
   port: 8005
+
+knife4j:
+  enable: true
+  setting:
+    enableRequestCache: true

@@ -1,7 +1,9 @@
 package com.sxx.product.mapper;
 
-import com.sxx.product.entity.AttrGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sxx.product.entity.AttrGroup;
+import com.sxx.product.vo.SpuItemAttrGroupVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,6 +21,8 @@ public interface AttrGroupMapper extends BaseMapper<AttrGroup> {
      * @return 删除状态
      */
     boolean deleteBatchByCatelogIds(List<Long> cateIds);
+
+    List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(@Param("spuId") Long spuId, @Param("catalogId") Long catalogId);
 }
 
 

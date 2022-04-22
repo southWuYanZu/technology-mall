@@ -1,34 +1,25 @@
 package com.sxx.product.service.impl;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
-import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxx.common.constant.Cons;
 import com.sxx.common.utils.PageUtils;
 import com.sxx.common.utils.Query;
-import com.sxx.common.utils.ResponseEntity;
-import com.sxx.product.entity.SkuImages;
 import com.sxx.product.entity.SkuInfo;
-import com.sxx.product.entity.SpuInfoDesc;
 import com.sxx.product.enums.ProConsEnums;
 import com.sxx.product.feign.SeckillFeignService;
 import com.sxx.product.mapper.SkuInfoMapper;
 import com.sxx.product.service.*;
-import com.sxx.product.vo.SeckillSkuVo;
-import com.sxx.product.vo.SkuItemSaleAttrVo;
 import com.sxx.product.vo.SkuItemVo;
-import com.sxx.product.vo.SpuItemAttrGroupVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author shenxianxin
@@ -51,7 +42,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
 
     private final SeckillFeignService seckillFeignService;
 
-    private final ThreadPoolExecutor executor;
+//    private final ThreadPoolExecutor executor;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -129,7 +120,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
 
 
     @Override
-    public SkuItemVo item(Long skuId) throws ExecutionException, InterruptedException {
+    public SkuItemVo item(Long skuId) throws ExecutionException, InterruptedException{
+        return null;
+    } /*{
 
         SkuItemVo skuItemVo = new SkuItemVo();
 
@@ -188,7 +181,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         //等到所有任务都完成
         CompletableFuture.allOf(saleAttrFuture, descFuture, baseAttrFuture, imageFuture, seckillFuture).get();
         return skuItemVo;
-    }
+    }*/
 
 }
 

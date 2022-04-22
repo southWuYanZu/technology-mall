@@ -1,5 +1,6 @@
 package com.sxx.product.vo;
 
+import com.sxx.product.entity.Attr;
 import lombok.Data;
 
 import java.util.List;

@@ -7,11 +7,13 @@ import com.sxx.product.service.CategoryService;
 import com.sxx.product.vo.Catelog2Vo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,8 @@ import java.util.Map;
 /**
  * @author admin
  */
-@Controller
+@RestController
+@ApiIgnore
 @RequiredArgsConstructor
 public class IndexController {
 
@@ -28,17 +31,19 @@ public class IndexController {
 
     private final CategoryService categoryService;
 
+    @ApiIgnore
     @GetMapping(value = {"/", "index.html"})
-    private String indexPage(Model model) {
+    private ModelAndView indexPage(Model model) {
 
         //1、查出所有的一级分类
         List<Category> categoryEntities = categoryService.getLevel1Categorys();
         model.addAttribute("categories", categoryEntities);
 
-        return "index";
+        return new ModelAndView("index");
     }
 
 
+    @ApiIgnore
     @GetMapping(value = "/index/json/catalog.json")
     @ResponseBody
 //    @Cacheable(value = "catalogJson",key = "#root.method.name")

@@ -152,7 +152,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
         List<AttrGroup> attrGroupEntities = this.list(new QueryWrapper<AttrGroup>().eq("catelog_id", catelogId));
 
         //2、查询所有属性
-        List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
+        return attrGroupEntities.stream().map(group -> {
             AttrGroupWithAttrsVo attrGroupWithAttrsVo = new AttrGroupWithAttrsVo();
             BeanUtils.copyProperties(group,attrGroupWithAttrsVo);
 
@@ -162,13 +162,13 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
             return attrGroupWithAttrsVo;
         }).collect(Collectors.toList());
 
-        return collect;
     }
 
     @Override
     public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
 
         //1、查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
+        AttrGroupMapper baseMapper = this.getBaseMapper();
         List<SpuItemAttrGroupVo> vos = baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catalogId);
 
         return vos;
